@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
-import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
-
+import { ProductsListComponent } from './components/products-list/products-list.component';
+import { FormComponent } from './components/form/form.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'tutorials', pathMatch: 'full' },
-  { path: 'tutorials', component: TutorialsListComponent },
-  { path: 'add', component: AddTutorialComponent }
+  { path: '', component: FormComponent },
+  { path: 'products', component: ProductsListComponent },
 ];
 
 @NgModule({

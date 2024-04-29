@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'xxx',
-    authDomain: 'bezkoder-firebase-123.firebaseapp.com',
-    databaseURL: 'https://bezkoder-firebase-123-default-rtdb.firebaseio.com',
-    projectId: 'bezkoder-firebase-123',
-    storageBucket: 'bezkoder-firebase-123.appspot.com',
-    messagingSenderId: 'xxx',
-    appId: 'xxx'
+    apiKey: "AIzaSyCJhzzcXoJ6UYk-0iM9n2m3gAA6sENIVa8",
+  authDomain: "supernova-3436a.firebaseapp.com",
+  databaseURL: "https://supernova-3436a-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "supernova-3436a",
+  storageBucket: "supernova-3436a.appspot.com",
+  messagingSenderId: "408716948950",
+  appId: "1:408716948950:web:054172bc7001219ebc2077"
   }
 };
