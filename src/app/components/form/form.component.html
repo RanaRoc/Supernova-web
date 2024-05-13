@@ -1,4 +1,269 @@
-<div
-id="form"
-style="width: 95%; height: 600px; border: 2px #ccc solid;"
-></div>
+<!-- form.component.html -->
+
+<div class="parent-widget rounded">
+  <p class="principal">Assistance Supernova</p>
+
+  <div *ngIf="showPreviousQuestion">
+    <h4 class="title">La création du projet va démarrer</h4>
+
+    <div class="widgets-container">
+      <div class="widget">
+        <img src="assets/images/message.png" alt="Image 1">
+        <h5 class="title">C’est Rapide !</h5>
+        <p>Le questionnaire prend moins de 5 minutes, aucun document n’est nécessaire.</p>
+      </div>
+      <div class="widget">
+        <img src="assets/images/outil.png" alt="Image 2">
+        <h5 class="title">On vous accompagne</h5>
+        <p>Nos experts répondent à toutes vos questions par chat ou par téléphone dans 24H maximum</p>
+      </div>
+      <div class="widget">
+        <img src="assets/images/papier.png" alt="Image 3">
+        <h5 class="title">On s’occupe de tout !</h5>
+        <p>Vos produits trouvés et votre projet finalisé en un temps record !</p>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="button" (click)="onNextButtonClick()">Suivant</button>
+    </div>
+  </div>
+
+  <div *ngIf="showProjectNameQuestion">
+    <img src="assets/images/name.png" alt="Image" class="image-right">
+    <h4 class="title left margin-top">Comment s'appelle votre projet ?</h4>
+    <div class="input-container left">
+      <input type="text" [(ngModel)]="projectName" class="input" id="input" placeholder="écrire ici ...">
+    </div>
+    <br>
+    <div class="buttons">
+      <button class="button" (click)="onBackButtonClick()">Précédent</button>
+      <button class="button" (click)="onNextStepButtonClick()">Suivant</button>
+    </div>
+  </div>
+
+  <div *ngIf="showNextPage">
+    <p> Quel est</p>
+    <h4 class="title">Le standing de votre projet ?</h4>
+    <div class="widget-container1">
+      <div class="widget1" (click)="selectWidget('Entrée de gamme')" [class.selected]="selectedWidget === 1">
+        <img src="assets/images/1.png" alt="Image 1">
+      </div>
+      <p class="widget-text">Entrée de gamme</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget1" (click)="selectWidget('Moyen standing')" [class.selected]="selectedWidget === 2">
+        <img src="assets/images/2.png" alt="Image 2">
+      </div>
+      <p class="widget-text">Moyen standing</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget1" (click)="selectWidget('Luxe / Haut de gamme')" [class.selected]="selectedWidget === 'Luxe / Haut de gamme'">
+        <img src="assets/images/3.png" alt="Image 3">
+      </div>
+      <p class="widget-text">Haut de gamme</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget1" (click)="selectWidget('Luxe / Haut de gamme')" [class.selected]="selectedWidget === 4">
+        <img src="assets/images/4.png" alt="Image 4">
+      </div>
+      <p class="widget-text">Luxe</p>
+    </div>
+
+    <br>
+    <button class="button" (click)="onEspaceButtonClick()">Suivant</button>
+  </div>
+
+  <div *ngIf="showStyle">
+    <p> Quel est</p>
+    <h4 class="title">Le style architectural du projet ?</h4>
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('Sobre & minimaliste')" [class.selected]="selectedStyle === 'Sobre & minimaliste'">
+        <img src="assets/images/sobre.png" alt="Image 1">
+      </div>
+      <p class="widget-text">Sobre & Minimaliste</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('moderne')" [class.selected]="selectedStyle === 'moderne'">
+        <img src="assets/images/moderne.png" alt="Image 2">
+      </div>
+      <p class="widget-text">Moderne</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('couleur')" [class.selected]="selectedStyle === 'couleur'">
+        <img src="assets/images/couleur.png" alt="Image 3">
+      </div>
+      <p class="widget-text">Couleurs vives</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('industriel')" [class.selected]="selectedStyle === 'industriel'">
+        <img src="assets/images/industriel.png" alt="Image 4">
+      </div>
+      <p class="widget-text">Industrial</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('ecologiste')" [class.selected]="selectedStyle === 'ecologiste'">
+        <img src="assets/images/ecologiste.png" alt="Image 4">
+      </div>
+      <p class="widget-text">Ecologiste</p>
+    </div>
+
+    <div class="widget-container1">
+      <div class="widget2" (click)="selectStyle('ancien')" [class.selected]="selectedStyle ==='ancien'">
+        <img src="assets/images/ancien.png" alt="Image 4">
+      </div>
+      <p class="widget-text">Styles anciens</p>
+    </div>
+
+    <br>
+    <button class="button" (click)="onStandingButtonClick()">Suivant</button>
+  </div>
+
+  <div *ngIf="showSegment">
+    <div class="arrow left" (click)="nextSegment()">
+      <img src="assets/images/angle-left.png" alt="Image">
+    </div>
+    <p> Quel est</p>
+    <h4 class="title">Le segment du projet ?</h4>
+    <div class="widget-container1" *ngFor="let segment of currentSegments">
+      <div class="widget3" (click)="selectSegment(segment.value)" [class.selected]="selectedSegment === segment.value">
+        <img [src]="segment.image" [alt]="segment.alt">
+      </div>
+      <p class="widget-text">{{ segment.label }}</p>
+    </div>
+    <div class="arrow right" (click)="nextSegment()">
+      <img src="assets/images/angle-right.png" alt="Image">
+    </div>
+    <br>
+  </div>
+
+  <div *ngIf="showType">
+    <p> Quel est</p>
+    <h4 class="title">Le type du projet ?</h4>
+    <div class="widget-container1" *ngFor="let type of types[selectedSegment]">
+      <div class="widget2" (click)="selectType(type.value)" [class.selected]="selectedType === type.value">
+        <img [src]="type.image" [alt]="type.alt">
+      </div>
+      <p class="widget-text">{{ type.label }}</p>
+    </div>
+    <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
+      <button class="button" (click)="onStyleButtonClick()">Suivant</button>
+    </div>
+  </div>
+
+  <div *ngIf="showEspace">
+    <p> Pourriez vous</p>
+    <h4 class="title">indiquer l'espace à étudier dans votre projet ?</h4>
+    <div class="widget-container1" *ngFor="let espace of espaces">
+      <div class="widget2" (click)="selectEspace(espace.value)" [class.selected]="selectedEspace=== espace.value">
+        <img [src]="espace.image" [alt]="espace.alt">
+      </div>
+      <p class="widget-text">{{ espace.label }}</p>
+    </div>
+    <br>
+
+    <button class="button" (click)="onSurfaceButtonClick()">Suivant</button>
+
+  </div>
+  <div *ngIf="showSurface">
+    <p> Quel est</p>
+    <h4 class="title">la surface de pose ?</h4>
+    <div class="widget-container1" *ngFor="let surface of surfaces">
+      <div class="widget2" (click)="selectSurface(surface.value)" [class.selected]="selectedSurface=== surface.value">
+        <img [src]="surface.image" [alt]="surface.alt">
+      </div>
+      <p class="widget-text">{{ surface.label }}</p>
+    </div>
+    <br>
+    <button class="button" (click)="onPoseButtonClick()">Suivant</button>
+  </div>
+
+  <div *ngIf="showPose">
+    <p> Quel est</p>
+    <h4 class="title">le mode de pose possible pour les luminaires au {{ selectedSurface }} ?</h4>
+    <div class="widget-container1" *ngFor="let pose of poses[selectedSurface]">
+      <div class="widget2" (click)="selectPose(pose.value)" [class.selected]="selectedPose=== pose.value">
+        <img [src]="pose.image" [alt]="pose.alt">
+      </div>
+      <p class="widget-text">{{ pose.label }}</p>
+    </div>
+    <br>
+    <button class="button" (click)="onMaterialClickButton()">Suivant</button>
+  </div>
+  <br>
+  <div *ngIf="showMaterial">
+    <p> Quel est</p>
+    <h4 class="title">Le matériau de la surface de pose ?</h4>
+    <div class="widget-container1" *ngFor="let material of materials">
+      <div class="widget4" (click)="selectMaterial(material.value)" [class.selected]="selectedMaterial=== material.value">
+        <img [src]="material.image" [alt]="material.alt">
+      </div>
+      <p class="widget-text">{{ material.label }}</p>
+    </div>
+    <br>
+    <button class="button" (click)="onHauteurClickButton()">Suivant</button>
+  </div>
+  <div *ngIf="showHauteur">
+
+    <p> Quel est</p>
+    <h4 class="title">La hauteur sous plafond ?</h4>
+    <img src="assets/images/tape.png" alt="Image" class="image-center">
+
+    <br>
+    <input type="text" [(ngModel)]="hauteur" class="input1" id="input-h" placeholder="écrire ici ...">
+    <br>
+    <button class="button" (click)="onFormeButtonClick()">Suivant</button>
+  </div>
+  <div *ngIf="showForme">
+    <p> Quelle forme</p>
+    <h4 class="title">De luminaires préférez-vous ?</h4>
+    <div class="widget-container1" *ngFor="let forme of formes">
+      <div class="widget2" (click)="selectForme(forme.value)" [class.selected]="selectedForme=== forme.value">
+        <img [src]="forme.image" [alt]="forme.alt">
+      </div>
+      <p class="widget-text">{{ forme.label }}</p>
+    </div>
+    <br>
+    <button class="button" (click)="onFinitionClickButton()">Suivant</button>
+  </div>
+  <div *ngIf="showFinition">
+    <p> Quelle </p>
+    <h4 class="title">Finition préférez-vous ?</h4>
+    <div class=" finition">
+      <div class="widget-wrapper">
+        <div class="widget2 gris" (click)="selectFinition('Gris')" [class.selected]="selectedFinition=== 'Gris'"></div>
+        <p class="widget-text">Gris</p>
+      </div>
+      <div class="widget-wrapper">
+        <div class="widget2 noir" (click)="selectFinition('Noir')" [class.selected]="selectedFinition=== 'Noir'"></div>
+        <p class="widget-text">Noir</p>
+      </div>
+      <div class="widget-wrapper">
+        <div class="widget2" (click)="selectFinition('Blanc')" [class.selected]="selectedFinition=== 'Blanc'"></div>
+        <p class="widget-text">Blanc</p>
+      </div>
+      <div class="widget-wrapper">
+        <div class="widget2" (click)="selectFinition('autre')" [class.selected]="selectedFinition=== 'autre'">
+        <img src="assets/images/jesaispas.jpg" alt="Image">
+        </div>
+        <p class="widget-text">Autre</p>
+      </div>
+    </div>
+    <br>
+    <button class="button" (click)="getResults()">Suivant</button>
+  </div>
+  <div *ngIf="showResponse">
+    <h4 class="title">Resultats :</h4>
+    <div class=" resultat">
+      <app-product-list [selectedProducts]="selectedProducts" class="product-list"></app-product-list>
+    </div>
+</div>

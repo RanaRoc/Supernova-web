@@ -10,16 +10,33 @@ import { map } from 'rxjs/operators';
 })
 export class ProductsListComponent implements OnInit {
   products?: Product[];
+  @Input() selectedProducts: any[];
+
   currentProduct?: Product;
   currentIndex = -1;
+  filteredProducts: any[] = [];
+  checkboxes: {[key: number]: boolean} = {};
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.filteredProducts = this.products;
     this.retrieveProducts();
-  }
+    for (let i = 1; i <= 4; i++) {
+      this.checkboxes[i] = false;
+    }
 
-  refreshList(): void {
+  }
+  applyFilter(combinaison: number) {
+    const selectedCombinations = Object.keys(this.checkboxes).filter(key => this.checkboxes[key]);
+    if (selectedCombinations.length === 0) {
+      // If no checkboxes are selected, show all products
+      this.filteredProducts = this.products;
+    } else {
+      // Filter products based on selected combinations
+      this.filteredProducts = this.products.filter(product => selectedCombinations.includes(product.Cas.toString()));
+    }
+  }  refreshList(): void {
     this.currentProduct = undefined;
     this.currentIndex = -1;
     this.retrieveProducts();

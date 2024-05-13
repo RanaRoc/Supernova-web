@@ -33,4 +33,7 @@ export class ProductService {
   deleteAll(): Promise<void> {
     return this.productsRef.remove();
   }
+  getProductByCas(Cas: number): AngularFireList<Product> {
+    return this.db.list('/produit', ref => ref.orderByChild('Cas').equalTo(Cas));
+  }
 }

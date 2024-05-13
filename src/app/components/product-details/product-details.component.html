@@ -1,94 +1,40 @@
 @if (currentProduct) {
-<div class="edit-form">
-  <h4>Product</h4>
-  <form>
-
-    <div class="form-group">
-      <label for="combinaison">Combinaison</label>
-      <input
-        type="text"
-        class="form-control"
-        id="combinaison"
-        [(ngModel)]="currentProduct.Combinaison"
-        name="combinaison"
-      />
+  <div class="product-details">
+    <div class="image-container">
+      <img src="{{ currentProduct.Image }}" alt="Product Image" />
     </div>
-    <div class="form-group">
-      <label for="cas">Cas</label>
-      <input
-        type="text"
-        class="form-control"
-        id="cas"
-        [(ngModel)]="currentProduct.Cas"
-        name="cas"
-      />
+    <div class="details-container">
+      <form>
+        <div class="form-group">
+          <label for="title"><strong>Marque:</strong></label>
+          <span>{{ currentProduct.Marque }}</span>
+        </div>
+        <div class="form-group">
+          <label for="description"><strong>Durée de vie:</strong></label>
+          <span>{{ currentProduct.Duree_de_vie }}</span>
+        </div>
+        <div class="form-group">
+          <label for="effLumineuse"><strong>Efficacité lumineuse:</strong></label>
+          <span>{{ currentProduct.Efficacite_Lumineuse }}</span>
+        </div>
+        <div class="form-group">
+          <label for="fluxLumi"><strong>Flux Lumineux:</strong></label>
+          <span>{{ currentProduct.Flux_lumineux }}</span>
+        </div>
+        <div class="form-group">
+          <label for="puiss"><strong>Puissance:</strong></label>
+          <span>{{ currentProduct.Puissance }}</span>
+        </div>
+        <div class="form-group">
+          <label for="TempCoul"><strong>Température de couleur:</strong></label>
+          <span>{{ currentProduct.Temperature_de_couleur }}</span>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="title">Marque</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        [(ngModel)]="currentProduct.Marque"
-        name="title"
-      />
-    </div>
-    <div class="form-group">
-      <label for="description">Duree de vie</label>
-      <input
-        type="text"
-        class="form-control"
-        id="description"
-        [(ngModel)]="currentProduct.Duree_de_vie"
-        name="description"
-      />
-    </div>
-    <div class="form-group">
-      <label for="effLumineuse">Efficacite lumineuse</label>
-      <input
-        type="text"
-        class="form-control"
-        id="effLumineuse"
-        [(ngModel)]="currentProduct.Efficacite_Lumineuse"
-        name="effLumineuse"
-      />
-    </div>
-    <div class="form-group">
-      <label for="fluxLumi">Flux Lumineux</label>
-      <input
-        type="text"
-        class="form-control"
-        id="fluxLumi"
-        [(ngModel)]="currentProduct.Flux_lumineux"
-        name="fluxLumi"
-      />
-    </div>
-    <div class="form-group">
-      <label for="puiss">Puissance</label>
-      <input
-        type="text"
-        class="form-control"
-        id="puiss"
-        [(ngModel)]="currentProduct.Puissance"
-        name="puiss"
-      />
-    </div>
-    <div class="form-group">
-      <label for="TempCoul">Temperature de couleur</label>
-      <input
-        type="text"
-        class="form-control"
-        id="TempCoul"
-        [(ngModel)]="currentProduct.Temperature_de_couleur"
-        name="TempCoul"
-      />
-    </div>
-  </form>
-
-</div>
+  </div>
 } @else {
-<div>
-  <br />
-  <p>Cannot access this Product...</p>
-</div>
+  <div>
+    <br />
+    <p>Cannot access this Product...</p>
+  </div>
 }

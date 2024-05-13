@@ -8,6 +8,7 @@ export class Product {
   Marque?: string;
   Puissance?: number;
   Temperature_de_couleur?: string;
+  Image?: string;
 
 }
 

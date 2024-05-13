@@ -1,0 +1,278 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.parent-widget {
+  font-family: 'Montserrat', sans-serif; /* Utilise la variante gras de Montserrat */
+  padding: 20px;
+  border-radius: 50px;
+  background-color: white; /* Arrière-plan blanc */
+  border: 2px solid #ddd; /* Bordures grises */
+  text-align: center; /* Centrage horizontal */
+}
+
+.widgets-container {
+
+  display: flex;
+  justify-content: center; /* Centrage horizontal */
+  align-items: center; /* Centrage vertical */
+  flex-wrap: wrap; /* Permet aux éléments de se placer sur plusieurs lignes si nécessaire */
+}
+
+.widget {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Effet d'ombre */
+  width: 30%; /* Ajustez selon vos besoins */
+  height: fit-content; /* Adjusts the height to fit the content */
+  min-height: 250px; /* Sets a minimum height of 200 pixels */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+  margin-bottom: 20px; /* Espacement entre les widgets */
+  background-color: white; /* Arrière-plan blanc */
+  border-radius: 40px; /* Bords plus ronds */
+  border: 2px solid #ddd; /* Bordures grises */
+}
+
+/* Autres styles restent inchangés */
+
+
+.widget img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.widget p {
+  position: absolute;
+  bottom: 10px;
+  left: 20px; /* Add margin from left */
+  right: 20px; /* Add margin from right */
+  color: black;
+  padding: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.widget:hover img {
+  transform: scale(1.1);
+}
+.margin-top{
+  margin-top: 100px;
+}
+.widget1.selected {
+  border: 2px solid #FFF9BF; /* Couleur de la bordure pour indiquer la sélection */
+}
+.widget3.selected {
+  border: 2px solid #FFF9BF; /* Couleur de la bordure pour indiquer la sélection */
+}
+.widget2.selected {
+  border: 2px solid purple;
+}
+.left{
+  margin-left:100px ;
+  text-align: left;
+}
+
+.widget:hover  {
+  background-color: #FFF9BF;
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.button:not(:hover) {
+  background-color: black;
+  color: white;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+.principal{
+  margin-bottom: 40px;
+}
+.title{
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.image-right {
+  margin-top:0px;
+  float: right;
+  margin-left: 10px;
+}
+.input{
+  margin-bottom: 20px;
+  width: 400px;
+  height: 40px;
+  border-radius: 40px; /* Bords plus ronds */
+  border: 2px solid #ddd; /* Bordures grises */
+  padding-left: 20px;
+  margin-left: 0px;
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.image-center{
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+width:200px;
+height: 300px;
+}
+.input1{
+
+  margin: 0 auto;
+  width: 400px;
+  height: 40px;
+  border-radius: 40px; /* Bords plus ronds */
+  border: 2px solid #ddd; /* Bordures grises */
+  box-shadow: -4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.button{
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-right :20px;
+  background-color: black;
+  border-color: black;
+  border-radius: 40px; /* Bords plus ronds */
+  color: white;
+  font-weight: bold;
+  height:50px;
+  width:200px;
+}
+
+.widget-container1 {
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+}
+
+.arrow {
+  position: absolute;
+  top: 70%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.left {
+  left: 150px;
+}
+
+.right {
+  right: 250px;
+}
+
+.widget1 {
+  width: 150px; /* Ajustez la largeur selon vos besoins */
+  height:180px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.widget1:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.widget1 img {
+  width: 50px; /* Ajustez la taille de l'image selon vos besoins */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 50%;
+  transform: translateY(-50%);
+}
+.widget2 {
+  width: 150px; /* Ajustez la largeur selon vos besoins */
+  height:180px;
+  padding: 10px;
+  margin:10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.widget2:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.widget2 img{
+width:100%;
+height:100%;
+object-fit: cover;
+}
+
+.widget3:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.widget-text {
+  text-align: center;
+  margin-top: 5px;
+  font-size: 14px; /* Ajustez la taille de la police selon vos besoins */
+}
+
+.widget3{
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height:180px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+.widget3 img{
+  width:100%;
+  height:100%;
+    object-fit: cover;
+
+  }
+.noir {
+  background-color: black;
+}
+.gris{
+  background-color: #949494;
+}
+  .widget4 {
+    width: 180px; /* Adjust the width as needed */
+    height: 180px; /* Adjust the height as needed */
+    border-radius: 50%; /* Make it circular */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .widget4:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .widget4 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Make it circular */
+  }
+  .widget4.selected{
+    border: 2px solid black /* Couleur de la bordure pour indiquer la sélection */
+  }
+  .finition {
+    flex-wrap: wrap; /* Permet aux éléments de se placer sur plusieurs lignes si nécessaire */
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .widget-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

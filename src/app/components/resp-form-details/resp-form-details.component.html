@@ -1,0 +1,124 @@
+@if (currentResponse) {
+  <div class="edit-form">
+    <h4>Response</h4>
+    <form>
+
+      <div class="form-group">
+        <label for="cas">Cas</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cas"
+          [(ngModel)]="currentResponse.Cas"
+          name="cas"
+        />
+      </div>
+      <div class="form-group">
+        <label for="espace">Espace a traiter</label>
+        <input
+          type="text"
+          class="form-control"
+          id="esppace"
+          [(ngModel)]="currentResponse.Espace_a_traiter"
+          name="espace"
+        />
+      </div>
+      <div class="form-group">
+        <label for="finition">Finition</label>
+        <input
+          type="text"
+          class="form-control"
+          id="finition"
+          [(ngModel)]="currentResponse.Finition"
+          name="finition"
+        />
+      </div>
+      <div class="form-group">
+        <label for="forme">Forme</label>
+        <input
+          type="text"
+          class="form-control"
+          id="forme"
+          [(ngModel)]="currentResponse.Forme"
+          name="forme"
+        />
+      </div>
+      <div class="form-group">
+        <label for="mater">Materiaux de surface de pose</label>
+        <input
+          type="text"
+          class="form-control"
+          id="mater"
+          [(ngModel)]="currentResponse.Materiaux_de_surface_de_pose"
+          name="mater"
+        />
+      </div>
+      <div class="form-group">
+        <label for="mode">Mode de pose</label>
+        <input
+          type="text"
+          class="form-control"
+          id="mode"
+          [(ngModel)]="currentResponse.Mode_de_pose"
+          name="mode"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Segment">Segment</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Segment"
+          [(ngModel)]="currentResponse.Segment"
+          name="Segment"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Standing">Standing</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Standing"
+          [(ngModel)]="currentResponse.Standing"
+          name="Standing"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Style">Style</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Style"
+          [(ngModel)]="currentResponse.Style"
+          name="Style"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Surface">Surface de pose</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Surface"
+          [(ngModel)]="currentResponse.Surface_de_pose"
+          name="Surface"
+        />
+      </div>
+      <div class="form-group">
+        <label for="Type">Type</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Type"
+          [(ngModel)]="currentResponse.Type_de_projet"
+          name="Type"
+        />
+      </div>
+    </form>
+
+  </div>
+  } @else {
+  <div>
+    <br />
+    <p>Cannot access this Response...</p>
+  </div>
+  }
