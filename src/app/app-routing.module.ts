@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsListComponent } from './components/products-list/products-list.component';
-import { ResponsesListComponent } from './components/resp-form-list/resp-form-list.component';
-
+import { AccueilComponent } from './components/accueil/accueil.component';
 import { FormComponent } from './components/form/form.component';
+import { FiltreComponent } from './components/filtre/filtre.component';
 const routes: Routes = [
-  { path: 'home', component: FormComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'form', component: FormComponent },
+  { path: 'accueil', component: AccueilComponent},
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   { path: 'products', component: ProductsListComponent },
-{ path: 'responses', component: ResponsesListComponent },
-
+{ path: 'filtre', component: FiltreComponent },
 ];
 
 @NgModule({

@@ -1,12 +1,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCJhzzcXoJ6UYk-0iM9n2m3gAA6sENIVa8",
-  authDomain: "supernova-3436a.firebaseapp.com",
-  databaseURL: "https://supernova-3436a-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "supernova-3436a",
-  storageBucket: "supernova-3436a.appspot.com",
-  messagingSenderId: "408716948950",
-  appId: "1:408716948950:web:054172bc7001219ebc2077"
+    apiKey: "AIzaSyBYTMHqsFXq-3lErQ5UHGndvMCECDjtCqE",
+    authDomain: "supernova-1-22e7c.firebaseapp.com",
+    databaseURL: "https://supernova-1-22e7c-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "supernova-1-22e7c",
+    storageBucket: "supernova-1-22e7c.appspot.com",
+    messagingSenderId: "806806701040",
+    appId: "1:806806701040:web:13a720ad4c2d9926bb1335",
+    measurementId: "G-1V5VXYFKLZ",
   }
 };

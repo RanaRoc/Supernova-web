@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supernova</title>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+          <img class="logo" src="assets/images/logo.jpg" alt="Supernova">
+          <br>
+
+            <div class="profile">
+                <img src="assets/images/profile.png" alt="Profile Picture">
+                <h2>Majeri Amine</h2>
+                <p>Voir et modifier le profile</p>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#"> <img class="padding-right" src="assets/images/home.png" alt="home"> Accueil</a> </li>
+                    <li> <a href="#"> <img class="padding-right" src="assets/images/heart.png" alt="Favorie"> Favorie</a></li>
+                    <li>
+
+                      <a href="#">  <img class="padding-right" src="assets/images/cart.png" alt="Panier"> Panier</a></li>
+                    <li>
+
+                      <a href="#"> <img class="padding-right"  src="assets/images/folder.png" alt="Projet"> Projet</a></li>
+                </ul>
+            </nav>
+            <div class="settings">
+                <ul>
+                    <li>
+                      <img class="padding-right" src="assets/images/settings.png" alt="Paramètre">
+
+                      <a href="#">  Paramètre</a></li>
+                    <li>
+                      <img class="padding-right" src="assets/images/logout.png" alt="Logout">
+                      <a href="#">  Logout</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="main-content">
+            <section class="welcome">
+                <h1>Bienvenue !</h1>
+                <p>Pour trouver les solutions d'éclairage les plus pertinentes pour vos projets, c'est par ici !</p>
+                <p class="bold">Trouvez le moyen le plus simple pour vous !</p>
+                <div class="widgets">
+                    <div class="widget">
+                        <img src="assets/images/logo.png" alt="Assistant">
+                        <p>Laissez-vous aider par l’assistant Supernova</p>
+                    </div>
+                    <div class="widget">
+                        <img src="assets/images/loupe.png" alt="Filter">
+                        <p>Recherchez parmis des milliers de produits</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button (click)="goToForm()">Par l'assistant</button>
+                    <button (click)="goToFiltre()">Par le filtre</button>
+                </div>
+            </section>
+            <section class="concepts">
+                <h2 class="bold">Mes concepts éclairage</h2>
+                <div class="concepts-grid">
+                    <div class="concept">
+                        <h3>Maison Annecy</h3>
+                    </div>
+                    <div class="concept">
+                        <h3>Chalet</h3>
+                    </div>
+                    <div class="concept">
+                        <h3>Restaurant</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

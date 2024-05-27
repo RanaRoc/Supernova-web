@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Product } from '../models/product.model';
+import { Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +14,17 @@ export class ProductService {
   constructor(private db: AngularFireDatabase) {
     this.productsRef = db.list(this.dbPath);
   }
-
+  addProduct(product: Product): void {
+     this.productsRef.push(product);
+  }
   getAll(): AngularFireList<Product> {
     return this.productsRef;
   }
 
-  create(product: Product): any {
-    return this.productsRef.push(product);
+  getProductByCas(cas: number): Observable<Product[]> {
+
+    return this.db.list<Product>('/produit', ref => ref.orderByChild('Cas').equalTo(cas)).valueChanges();
+
   }
 
-  update(key: string, value: any): Promise<void> {
-    return this.productsRef.update(key, value);
-  }
-
-  delete(key: string): Promise<void> {
-    return this.productsRef.remove(key);
-  }
-
-  deleteAll(): Promise<void> {
-    return this.productsRef.remove();
-  }
-  getProductByCas(Cas: number): AngularFireList<Product> {
-    return this.db.list('/produit', ref => ref.orderByChild('Cas').equalTo(Cas));
-  }
 }

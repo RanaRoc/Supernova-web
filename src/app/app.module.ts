@@ -15,10 +15,8 @@ import { AppComponent } from './app.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { FormComponent } from './components/form/form.component';
-import { ResponsesListComponent } from './components/resp-form-list/resp-form-list.component';
-import {  ResponseDetailsComponent } from './components/resp-form-details/resp-form-details.component';
-import { SignupComponent } from './signup/signup.component';
-import { SigninComponent } from './signin/signin.component';
+import { AccueilComponent } from './components/accueil/accueil.component';
+import { FiltreComponent } from './components/filtre/filtre.component';
 
 @NgModule({
 
@@ -27,10 +25,8 @@ import { SigninComponent } from './signin/signin.component';
     ProductsListComponent,
     ProductDetailsComponent,
     FormComponent,
-    ResponsesListComponent,
-    ResponseDetailsComponent,
-    SignupComponent,
-    SigninComponent,
+    AccueilComponent,
+    FiltreComponent,
   ],
   imports: [
     HttpClientModule,

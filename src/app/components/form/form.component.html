@@ -5,8 +5,9 @@
 
   <div *ngIf="showPreviousQuestion">
     <h4 class="title">La création du projet va démarrer</h4>
-
     <div class="widgets-container">
+
+
       <div class="widget">
         <img src="assets/images/message.png" alt="Image 1">
         <h5 class="title">C’est Rapide !</h5>
@@ -46,14 +47,14 @@
     <p> Quel est</p>
     <h4 class="title">Le standing de votre projet ?</h4>
     <div class="widget-container1">
-      <div class="widget1" (click)="selectWidget('Entrée de gamme')" [class.selected]="selectedWidget === 1">
+      <div class="widget1" (click)="selectWidget('Petit budget')" [class.selected]="selectedWidget === 'Petit budget'">
         <img src="assets/images/1.png" alt="Image 1">
       </div>
       <p class="widget-text">Entrée de gamme</p>
     </div>
 
     <div class="widget-container1">
-      <div class="widget1" (click)="selectWidget('Moyen standing')" [class.selected]="selectedWidget === 2">
+      <div class="widget1" (click)="selectWidget('Moyen standing')" [class.selected]="selectedWidget === 'Moyen standing'">
         <img src="assets/images/2.png" alt="Image 2">
       </div>
       <p class="widget-text">Moyen standing</p>
@@ -63,18 +64,15 @@
       <div class="widget1" (click)="selectWidget('Luxe / Haut de gamme')" [class.selected]="selectedWidget === 'Luxe / Haut de gamme'">
         <img src="assets/images/3.png" alt="Image 3">
       </div>
-      <p class="widget-text">Haut de gamme</p>
+      <p class="widget-text">Luxe / Haut de gamme</p>
     </div>
 
-    <div class="widget-container1">
-      <div class="widget1" (click)="selectWidget('Luxe / Haut de gamme')" [class.selected]="selectedWidget === 4">
-        <img src="assets/images/4.png" alt="Image 4">
-      </div>
-      <p class="widget-text">Luxe</p>
-    </div>
 
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onEspaceButtonClick()">Suivant</button>
+    </div>
   </div>
 
   <div *ngIf="showStyle">
@@ -88,14 +86,14 @@
     </div>
 
     <div class="widget-container1">
-      <div class="widget2" (click)="selectStyle('moderne')" [class.selected]="selectedStyle === 'moderne'">
+      <div class="widget2" (click)="selectStyle('Moderne')" [class.selected]="selectedStyle === 'Moderne'">
         <img src="assets/images/moderne.png" alt="Image 2">
       </div>
       <p class="widget-text">Moderne</p>
     </div>
 
     <div class="widget-container1">
-      <div class="widget2" (click)="selectStyle('couleur')" [class.selected]="selectedStyle === 'couleur'">
+      <div class="widget2" (click)="selectStyle('Couleurs vives')" [class.selected]="selectedStyle === 'Couleurs vives'">
         <img src="assets/images/couleur.png" alt="Image 3">
       </div>
       <p class="widget-text">Couleurs vives</p>
@@ -109,27 +107,27 @@
     </div>
 
     <div class="widget-container1">
-      <div class="widget2" (click)="selectStyle('ecologiste')" [class.selected]="selectedStyle === 'ecologiste'">
+      <div class="widget2" (click)="selectStyle('Ecologiste')" [class.selected]="selectedStyle === 'Ecologiste'">
         <img src="assets/images/ecologiste.png" alt="Image 4">
       </div>
       <p class="widget-text">Ecologiste</p>
     </div>
 
     <div class="widget-container1">
-      <div class="widget2" (click)="selectStyle('ancien')" [class.selected]="selectedStyle ==='ancien'">
+      <div class="widget2" (click)="selectStyle('Style ancien')" [class.selected]="selectedStyle ==='Style ancien'">
         <img src="assets/images/ancien.png" alt="Image 4">
       </div>
       <p class="widget-text">Styles anciens</p>
     </div>
 
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onStandingButtonClick()">Suivant</button>
+    </div>
   </div>
 
   <div *ngIf="showSegment">
-    <div class="arrow left" (click)="nextSegment()">
-      <img src="assets/images/angle-left.png" alt="Image">
-    </div>
     <p> Quel est</p>
     <h4 class="title">Le segment du projet ?</h4>
     <div class="widget-container1" *ngFor="let segment of currentSegments">
@@ -138,9 +136,11 @@
       </div>
       <p class="widget-text">{{ segment.label }}</p>
     </div>
-    <div class="arrow right" (click)="nextSegment()">
-      <img src="assets/images/angle-right.png" alt="Image">
-    </div>
+    <div class="buttons">
+      <button class="button" (click)="onNextButtonClick1()">Précédent</button>
+      <button class="button" (click)="onStandingButtonClick()">Suivant</button>
+
+</div>
     <br>
   </div>
 
@@ -170,9 +170,11 @@
       <p class="widget-text">{{ espace.label }}</p>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
 
     <button class="button" (click)="onSurfaceButtonClick()">Suivant</button>
-
+</div>
   </div>
   <div *ngIf="showSurface">
     <p> Quel est</p>
@@ -184,7 +186,10 @@
       <p class="widget-text">{{ surface.label }}</p>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onPoseButtonClick()">Suivant</button>
+    </div>
   </div>
 
   <div *ngIf="showPose">
@@ -197,7 +202,10 @@
       <p class="widget-text">{{ pose.label }}</p>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onMaterialClickButton()">Suivant</button>
+    </div>
   </div>
   <br>
   <div *ngIf="showMaterial">
@@ -210,7 +218,10 @@
       <p class="widget-text">{{ material.label }}</p>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onHauteurClickButton()">Suivant</button>
+    </div>
   </div>
   <div *ngIf="showHauteur">
 
@@ -233,7 +244,10 @@
       <p class="widget-text">{{ forme.label }}</p>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="onFinitionClickButton()">Suivant</button>
+    </div>
   </div>
   <div *ngIf="showFinition">
     <p> Quelle </p>
@@ -252,6 +266,13 @@
         <p class="widget-text">Blanc</p>
       </div>
       <div class="widget-wrapper">
+        <div class="widget2" (click)="selectFinition('auchoix')" [class.selected]="selectedFinition=== 'auchoix'">
+        <img src="assets/images/jesaispas.jpg" alt="Image">
+        </div>
+        <p class="widget-text">Au choix</p>
+      </div>
+
+      <div class="widget-wrapper">
         <div class="widget2" (click)="selectFinition('autre')" [class.selected]="selectedFinition=== 'autre'">
         <img src="assets/images/jesaispas.jpg" alt="Image">
         </div>
@@ -259,11 +280,46 @@
       </div>
     </div>
     <br>
+    <div class="buttons">
+      <button class="button" (click)="onSegmentButtonClick()">Précédent</button>
     <button class="button" (click)="getResults()">Suivant</button>
+    </div>
   </div>
   <div *ngIf="showResponse">
     <h4 class="title">Resultats :</h4>
     <div class=" resultat">
       <app-product-list [selectedProducts]="selectedProducts" class="product-list"></app-product-list>
+    </div>
+    <div class="product-details">
+      <div class="image-container">
+      </div>
+      <div class="details-container">
+        <form>
+          <div class="form-group">
+            <label for="title"><strong>Marque: </strong></label>
+            <span>Flos</span>
+          </div>
+          <div class="form-group">
+            <label for="description"><strong>Durée de vie: </strong></label>
+            <span>12 W</span>
+          </div>
+          <div class="form-group">
+            <label for="effLumineuse"><strong>Efficacité lumineuse: </strong></label>
+            <span>12 lm</span>
+          </div>
+          <div class="form-group">
+            <label for="fluxLumi"><strong>Flux Lumineux: </strong></label>
+            <span>3011 K</span>
+          </div>
+          <div class="form-group">
+            <label for="puiss"><strong>Puissance: </strong></label>
+            <span>12 Lm/W</span>
+          </div>
+          <div class="form-group">
+            <label for="TempCoul"><strong>Température de couleur: </strong></label>
+            <span>50012 h</span>
+          </div>
+        </form>
+      </div>
     </div>
 </div>

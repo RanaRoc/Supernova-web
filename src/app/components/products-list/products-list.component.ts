@@ -58,10 +58,4 @@ export class ProductsListComponent implements OnInit {
     this.currentProduct = product;
     this.currentIndex = index;
   }
-
-  removeAllProducts(): void {
-    this.productService.deleteAll()
-      .then(() => this.refreshList())
-      .catch(err => console.log(err));
-  }
 }

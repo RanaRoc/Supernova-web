@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <title class="headT">Supernova Filter</title>
+</head>
+<body>
+  <div class="container">
+      <aside class="sidebar">
+        <img class="logo" src="assets/images/logo.jpg" alt="Supernova">
+        <br>
+
+          <div class="profile">
+              <img src="assets/images/profile.png" alt="Profile Picture">
+              <h2>Majeri Amine</h2>
+              <p>Voir et modifier le profile</p>
+          </div>
+          <nav>
+              <ul>
+                  <li class="active"><a href="#"> <img class="padding-right" src="assets/images/home.png" alt="home"> Accueil</a> </li>
+                  <li> <a href="#"> <img class="padding-right" src="assets/images/heart.png" alt="Favorie"> Favorie</a></li>
+                  <li>
+
+                    <a href="#">  <img class="padding-right" src="assets/images/cart.png" alt="Panier"> Panier</a></li>
+                  <li>
+
+                    <a href="#"> <img class="padding-right"  src="assets/images/folder.png" alt="Projet"> Projet</a></li>
+              </ul>
+          </nav>
+          <div class="settings">
+              <ul>
+                  <li>
+                    <img class="padding-right" src="assets/images/settings.png" alt="Paramètre">
+
+                    <a href="#">  Paramètre</a></li>
+                  <li>
+                    <img class="padding-right" src="assets/images/logout.png" alt="Logout">
+                    <a href="#">  Logout</a></li>
+              </ul>
+          </div>
+      </aside>
+
+    <main *ngIf="!showProduit" class="main-content">
+      <h1 class="headT" >Filtre supernova</h1>
+
+      <header>
+        <div class="search-bar">
+          <img src="assets/images/search.png" alt="Search">
+
+          <input type="text" placeholder="Search">
+        </div>
+      </header>
+      <form class="filter-form">
+        <div>
+          <h2 class="so">Standing</h2>
+          <div class="form-section gap ">
+            <div class="radio-container">
+              <input type="radio" id="entree" class="radio" name="standing" value="entree" (change)="selectedSegment = 'Entrée de gamme'">
+              <label for="entree" class="radio-label">Entrée de gamme</label>
+            </div>
+              <div class="radio-container">
+              <input type="radio" id="moyen" class="radio" name="standing" value="moyen" (change)="selectedSegment = 'Moyen standing'">
+              <label for="moyen" class="radio-label">Moyen standing</label>
+            </div>
+            <div class="radio-container">
+              <input type="radio" id="luxe" class="radio" name="standing" value="luxe" (change)="selectedSegment = 'Luxe / Haut de gamme'">
+              <label for="luxe" class="radio-label">Luxe / Haut de gamme</label>
+            </div>
+        </div></div>
+        <br>
+        <div>
+          <h2 class="so">Segment</h2>
+          <div class="form-section">
+            <div class="radio-container" *ngFor="let segment of Segments">
+              <input type="radio" id="{{segment.value}}" class="radio" name="segment" [value]="segment.value" (change)="onSegmentChange(segment.value, $event)">
+              <label for="{{segment.value}}" class="radio-label">{{segment.label}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="selectedSegment" class="form-section">
+          <h2>Types de projets pour {{ selectedSegment }}</h2>
+          <div class="select-container">
+            <select id="typeSelect">
+              <option (change)="selectedType = type.label"  value="" disabled selected>Sélectionner un type</option>
+              <option *ngFor="let type of types[selectedSegment]" [value]="type.value">{{type.label}}</option>
+            </select>
+          </div>
+                </div>
+                <div *ngIf="selectedSegment==='Résidentiel'" class="form-section">
+                  <h2>Espace à traiter</h2>
+                  <div class="select-container">
+                    <select id="espaceSelect">
+                      <option (change)="selectedEspace = espace.label" value="" disabled selected>Sélectionner un espace à traiter</option>
+                      <option *ngFor="let espace of espaces" [value]="espace.value">{{espace.label}}</option>
+                    </select>
+                  </div>
+                        </div>
+                        <div>
+                        <h2 class="so"> Surface de pose </h2>
+
+                        <div class="form-section1">
+                          <div class="radio-container" *ngFor="let surface of surfaces">
+                            <input (change)="selectedSurface = surface.label" type="radio" id="{{surface.value}}" class="radio" name="surface" [value]="surface.value" (change)="onSurfaceChange(surface.value, $event)">
+                            <label for="{{surface.value}}" class="radio-label" >{{surface.label}}</label>
+                          </div>
+                        </div></div>
+
+                        <div *ngIf="selectedSurface" class="form-section">
+                          <h2>Mode de pose pour {{ selectedSurface }}</h2>
+                          <div class="select-container">
+                            <select id="modeSelect">
+                              <option (change)="selectedPose= pose.label" value="" disabled selected>Sélectionner une mode de pose</option>
+                              <option *ngFor="let pose of poses[selectedSurface]" [value]="pose.value" >{{pose.label}} </option>
+                            </select>
+                          </div>
+                                </div>
+                                <div>
+                                  <h2 class="so">Materiaux de surface de pose </h2>
+                                  <div class="form-section">
+                                    <div class="radio-container" *ngFor="let material of materials">
+                                      <input (change)="selectedMaterial=material.label" type="radio" id="{{material.value}}" class="radio" name="material" [value]="material.value" >
+                                      <label for="{{material.value}}" class="radio-label">{{material.label}}</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <h2 class="so">Forme </h2>
+                                  <div class="form-section">
+                                    <div class="radio-container" *ngFor="let forme of formes">
+                                      <input (change)="selectedForme" type="radio" id="{{forme.value}}" class="radio" name="forme" [value]="forme.value" >
+                                      <label for="{{forme.value}}" class="radio-label">{{forme.label}}</label>
+                                    </div>
+                                  </div>
+                                </div>
+
+        <div>
+          <h2 class="so">Style </h2>
+          <div class="form-section">
+            <div class="radio-container" *ngFor="let style of styles">
+              <input type="radio" (change)=" selectedStyle" id="{{style.label}}" class="radio" name="style" [value]="style.label" >
+              <label for="{{style.label}}" class="radio-label">{{style.label}}</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 class="so">Finition </h2>
+          <div class="form-section">
+            <div class="radio-container" *ngFor="let finition of finitions">
+              <input (change)="selectedFinition" type="radio" id="{{finition.label}}" class="radio" name="finition" [value]="finition.label" >
+              <label for="{{finition.label}}" class="radio-label">{{finition.label}}</label>
+            </div>
+          </div>
+        </div>
+<br>
+
+</form>
+        <button (click)="showR()" type="submit" class="search">Chercher</button>
+
+    </main>
+    <div *ngIf="showProduit">
+      <div class="list row">
+        <div class="col-md-6">
+            <div *ngFor="let product of produits">
+              <app-product-details [product]="product"></app-product-details>
+              <hr> <!-- Optional: Add a horizontal line between product details -->
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
