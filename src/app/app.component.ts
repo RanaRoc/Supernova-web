@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { ResponseService } from './services/response.service';
-import { GoogleSheetsService } from './services/google-sheets.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,12 +11,43 @@ export class AppComponent implements OnInit {
   sheetData: any; // Assuming your sheet data is of any type, adjust as needed
 
   constructor(
-    private googleSheetsService: GoogleSheetsService,
     private productService: ProductService,
     private responseService: ResponseService
   ) {}
 
+  sendEmail() {
+    document.getElementById('emailForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const subject = (document.getElementById('subject') as HTMLInputElement).value;
+      const body = (document.getElementById('body') as HTMLInputElement).value;
+      console.log("trying to send email");
+
+
+
+      try {
+        const response = await fetch('http://localhost:3000/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, subject, body }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+        } else {
+          alert(result.error);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while sending the email');
+      }
+    });
+  }
   async ngOnInit() {
+
     //this.googleSheetsService.fetchDataFromGoogleSheet();
   }
 

@@ -11,14 +11,18 @@ export class ProductDetailsComponent implements OnInit, OnChanges {
   @Input() product?: Product;
   @Output() refreshList: EventEmitter<any> = new EventEmitter();
   currentProduct: Product = {
-    Cas: 0,
+    Identifiant: '',
     Marque: '',
-    Duree_de_vie: '',
-    Efficacite_Lumineuse: '',
-    Flux_lumineux: '',
-    Puissance: 0,
+    Modele: '',
+    Type: '',
+    Finition: '',
+    Puissance: '',
     Temperature_de_couleur: '',
-    Image: ''
+    Forme: '',
+    Faisceau: '',
+    Photo_luminaire: '',
+    Photo_projet: '',
+    Description: ''
   };
   message = '';
 

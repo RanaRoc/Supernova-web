@@ -17,6 +17,10 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { FormComponent } from './components/form/form.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { FiltreComponent } from './components/filtre/filtre.component';
+import { LoginComponent } from './components/login/login.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { ProjectListComponent } from './components/project-list/project-list.component';
 
 @NgModule({
 
@@ -27,6 +31,10 @@ import { FiltreComponent } from './components/filtre/filtre.component';
     FormComponent,
     AccueilComponent,
     FiltreComponent,
+    LoginComponent,
+    UserListComponent,
+    WishlistComponent,
+    ProjectListComponent,
   ],
   imports: [
     HttpClientModule,

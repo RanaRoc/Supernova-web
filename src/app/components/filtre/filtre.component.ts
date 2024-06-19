@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { map } from 'rxjs';
+import { ResponseService } from '../../services/response.service';
+import { UserService } from '../../services/user.service';
+import { Renderer2 } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 @Component({
   selector: 'app-filtre',
   templateUrl: './filtre.component.html',
   styleUrl: './filtre.component.css'
 })
 export class FiltreComponent {
-  constructor(private productService: ProductService) {}
+  user = null;
+  fullName = '';
+  constructor(private productService: ProductService, private responseService: ResponseService, private userService: UserService, private router : Router) {}
 
   Segments: { value: string, label: string, image: string, alt: string }[] = [
     { value: 'Résidentiel', label: 'Résidentiel', image: 'assets/images/résidentielle.jpg', alt: 'Image 1' },
@@ -105,11 +111,10 @@ export class FiltreComponent {
   };
   espaces: { value: string, label: string, image: string, alt: string }[] = [
     { value: 'Chambre', label: 'Chambre', image: 'assets/images/chambre.jpg', alt: 'Image 1' },
-    { value: 'Salon / Séjour', label: 'Salon / Séjour', image: 'assets/images/salon.jpg', alt: 'Image 2' },
-    { value: 'Cuisine', label: 'cuisine', image: 'assets/images/cuisine.jpg', alt: 'Image 3' },
-    { value: 'Bureau', label: 'Bureau', image: 'assets/images/bureau.jpg', alt: 'Image 5' },
+    { value: 'Salon / séjour', label: 'Salon / séjour', image: 'assets/images/salon.jpg', alt: 'Image 2' },
+    { value: 'Cuisine', label: 'Cuisine', image: 'assets/images/cuisine.jpg', alt: 'Image 3' },
     { value: 'Salle de bain', label: 'Salle de bain', image: 'assets/images/salle_de_bain.jpg', alt: 'Image 4' },
-    { value: 'Buanderie', label: 'Buanderie', image: 'assets/images/bandelerie.jpg', alt: 'Image 6' },
+    { value: 'Abords exterieur', label: 'Abords exterieur', image: 'assets/images/bandelerie.jpg', alt: 'Image 6' },
     { value: 'Couloir', label: 'Couloir', image: 'assets/images/couloir.jpg', alt: 'Image 6' },
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/autre.jpg', alt: 'Image 3' },
   ];
@@ -154,7 +159,7 @@ export class FiltreComponent {
     { value: 'Rond', label: 'Rond', image: 'assets/images/rond.png', alt: 'Image 1' },
     { value: 'Carré', label: 'Carré', image: 'assets/images/carre.png', alt: 'Image 2' },
     { value: 'Rectangulaire', label: 'Rectangulaire', image: 'assets/images/rectangulaire.svg', alt: 'Image 3' },
-    { value: 'lineaire', label: 'Linéaire', image: 'assets/images/ligne.png', alt: 'Image 4' },
+    { value: 'Linéaire', label: 'Linéaire', image: 'assets/images/ligne.png', alt: 'Image 4' },
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/jesaispas.jpg', alt: 'Image 4' },
 
   ];
@@ -173,7 +178,11 @@ export class FiltreComponent {
     { label: 'Au choix' },
 
   ];
+  selectedFinitionP = '';
+  selectedProduct: any = null;
   showProduit = false;
+  showDetails = false;
+  showManufacture = false;
   selectedSegment: string | null = null;
   selectedSurface: string | null = null;
   selectedType: string | null = null;
@@ -184,8 +193,13 @@ export class FiltreComponent {
   selectedStyle: string | null = null;
   selectedFinition: string | null = null;
   selectedStanding: string | null = null;
-
+  responses = [];
   produits = [];
+
+goToFavorite(): void {
+  this.router.navigate(['/wishlist'], { state: { user: this.user } });
+}
+
   onSegmentChange(segment: string, event: Event): void {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
@@ -202,73 +216,182 @@ export class FiltreComponent {
       this.selectedSurface = null;
     }
   }
-  showR(){
-    this.retrieveProducts();
-    this.showProduit = true;
-    const filteredProduits = this.produits.filter((produit) => {
-      alert("hello");
-      console.log(produit);
-      if (this.selectedSegment && produit.segment !== this.selectedSegment) {
-        console.log(produit.segment);
-        console.log(this.selectedSegment);
-      return false;
-      }
-      if (this.selectedSurface && produit.surface !== this.selectedSurface) {
-      console.log(produit.surface);
-        return false;
-      }
-      if (this.selectedType && produit.type !== this.selectedType) {
-      console.log(produit.type);
-        return false;
-      }
-      if (this.selectedEspace && produit.espace !== this.selectedEspace) {
-        console.log(produit.espace);
-        console.log(this.selectedEspace);
-
-      return false;
-      }
-      if (this.selectedPose && produit.pose !== this.selectedPose) {
-        console.log(produit.pose);
-        return false;
-      }
-      if (this.selectedMaterial && produit.material !== this.selectedMaterial) {
-      console.log(produit.material);
-        return false;
-      }
-      if (this.selectedForme && produit.forme !== this.selectedForme) {
-      console.log(produit.forme);
-        return false;
-      }
-      if (this.selectedStyle && produit.style !== this.selectedStyle) {
-      console.log(produit.style);
-        return false;
-      }
-      if (this.selectedFinition && produit.finition !== this.selectedFinition) {
-     console.log(produit.finition);
-        return false;
-      }
-      if (this.selectedStanding && produit.standing !== this.selectedStanding) {
-      console.log(produit.standing);
-        return false;
-      }
-      console.log("true");
-console.log(produit);
-      return true;
-    });
-
-    console.log(filteredProduits);
+  onSelectChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedOption = selectElement.options[selectElement.selectedIndex].text;
+    this.selectedEspace = selectedOption;
+    console.log('Selected espace:', this.selectedEspace);
   }
+  returnToMenu(){
+    this.router.navigate(['/accueil'])
+  }
+  async showR(){
 
-  retrieveProducts(): void {
-    this.productService.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({  key: c.payload.key, ...c.payload.val() })
-        )
+    let selectedResponses = this.responses.filter(response => {
+      return (
+        (this.selectedEspace === "" || response.Espace_a_traiter === this.selectedEspace)
+
+      );
+    });
+    console.log(this.selectedSegment+" "+this.selectedSurface+" "+this.selectedEspace);
+    console.log("selected responses :");
+    console.log(selectedResponses);
+    console.log("selected products :"
+    );
+    console.log(this.produits);
+
+    let casValues = Array.from(new Set(selectedResponses.flatMap(response => [response.Choix1, response.Choix2, response.Choix3])));
+    console.log("Cas values :");
+    console.log(casValues);
+// Filter products where Cas matches any of the Cas values in the responses
+this.produits = this.produits.filter(product =>
+  casValues.includes(product.Identifiant)
+);
+console.log("filtered products :");
+console.log(this.produits);
+
+
+      this.showProduit = true;
+
+    }
+
+
+
+
+ngOnInit(): void {
+
+
+    console.log("user :");
+    console.log(this.user);
+  this.retrieveProducts();
+  this.retrieveResponses();
+  this.refreshWishlist();
+
+}
+
+toggleWishlist(product: any): void {
+  // Check if user is defined
+  if (this.user) {
+    product.inWishlist = !product.inWishlist;
+    if (product.inWishlist) {
+      // Ensure user's wishlist exists before pushing
+      if (!this.user.wishList) {
+        this.user.wishList = [];
+      }
+      this.user.wishList.push(product);
+    } else {
+      // Filter out the product from the wishlist
+      this.user.wishList = this.user.wishList.filter((item: any) => item.Cas !== product.Identifiant);
+    }
+    this.updateWishlistIcon(product);
+  } else {
+    console.error('User is not defined.');
+  }
+}
+
+
+updateWishlistIcon(product: any): void {
+  const wishlistButton = document.querySelector(`#wish${product.Identifiant}`);
+  if (wishlistButton) {
+    wishlistButton.textContent = product.inWishlist ? '❤️' : '♡';
+  }
+}
+
+refreshWishlist(): void {
+
+  if (this.produits.length > 0 && this.user!=null && this.user.wishList!=null) {
+    for (const product of this.produits) {
+      product.inWishlist = this.user.wishList.some((item: any) => item.Cas === product.Identifiant);
+      this.updateWishlistIcon(product);
+    }
+  }
+}
+handleImageError($event){
+  $event.target.src = 'assets/images/chambre.jpg';
+}
+retrieveProducts(): void {
+  this.productService.getAll().snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c =>
+        ({ key: c.payload.key, ...c.payload.val() })
       )
-    ).subscribe(data => {
-      this.produits = data;
-    });
-  }
+    )
+  ).subscribe(data => {
+    this.produits = data;
+    this.refreshWishlist();
+  });
+}
 
+retrieveResponses(): void {
+  this.responseService.getAll().snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c =>
+        ({ key: c.payload.key, ...c.payload.val() })
+      )
+    )
+  ).subscribe(data => {
+    this.responses = data;
+  });
+}
+
+displayDetails(product: any): void {
+  console.log('Selected product:', product);
+  this.selectedProduct = product;
+  this.displayColors();
+  this.showDetails = true;
+  this.showProduit = false;
+
+
+}
+ finitionColors: string[] = [];
+ finition = [];
+firstTime = true;
+displayColors() {
+  if (this.firstTime) {
+     this.finition = this.selectedProduct?.Finition?.split(',');
+     this.finition.forEach(finition => {
+      finition = finition.trim();
+      if (finition.includes('Noir')) {
+        this.finitionColors[finition]='black';
+      }
+      if (finition.includes('Blanc')) {
+        this.finitionColors[finition]='white';
+      }
+      if (finition.includes('Gris')) {
+        this.finitionColors[finition]='grey';
+      }
+      if (finition.includes('Doré')) {
+        this.finitionColors[finition]='gold';
+      }
+    });
+    console.log(this.finition);
+    console.log(this.finitionColors);
+    // IM TOO LAZY RIGHT NOW BUT I CAN JUST LOOP THROUGH THIS.COULEUROPTIONS IN HTML INSTEAD OF DOING THIS
+    this.finitionColors = [...new Set(this.finitionColors)];
+    this.firstTime = false;
+  }
+}
+
+
+
+goBack(): void {
+  this.showDetails = false;
+  this.showProduit = true;
+  this.firstTime = true;
+
+  this.refreshWishlist();
+}
+
+send(): void {
+  const option1 = document.getElementById('option1') as HTMLInputElement;
+  const option2 = document.getElementById('option2') as HTMLInputElement;
+  const option3 = document.getElementById('option3') as HTMLInputElement;
+
+  if (option1.checked) console.log('Option 1 is checked');
+  if (option2.checked) console.log('Option 2 is checked');
+  if (option3.checked) console.log('Option 3 is checked');
+
+  this.showDetails = false;
+  this.showManufacture = true;
+}
 }

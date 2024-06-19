@@ -318,3 +318,335 @@ h1 {
   width:600px;
   justify-content: center;
 }
+.product-list {
+  text-align: center;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s;
+  position: relative; /* Added for positioning the wishlist button */
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  position: relative; /* Added for positioning the wishlist button */
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: lightgray; /* Default color */
+  transition: color 0.3s;
+}
+
+.wishlist-button.added {
+  color: red; /* Color when added to wishlist */
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.card-content h3 {
+  margin: 10px 0 5px;
+  font-size: 1.2em;
+}
+
+.card-content p {
+  margin: 0;
+  color: #555;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+
+.card-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.card-actions .cart-button {
+  color: green;
+}
+
+.bold{
+  font-weight: bold;
+padding:20px;
+margin: 20px;
+}
+.product-detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+.product-image {
+  position: relative;
+  width: 100%;
+  height: 50%;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.wishlist-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: lightgray;
+  transition: color 0.3s;
+}
+
+.wishlist-button.added {
+  color: red;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.product-description p {
+  margin: 5px 0;
+}
+
+.product-color {
+  margin: 20px 0;
+}
+
+.color-options {
+  display: flex;
+  gap: 10px;
+}
+
+.color-option {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.add-to-project-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.add-to-project-button:hover {
+  background-color: #444;
+}
+.image-top{
+  width: 100%;
+  max-height: 100%;
+}
+
+.image-desc{
+  width : 70px;
+  height : 70px;
+  margin : 10px;
+}
+.product-options {
+  margin-top: 20px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.checkbox-label {
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 100vh;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  padding-left: 200px;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #000;
+}
+
+.contact-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.contact-content h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.contact-content p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contact-info img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.contact-details p {
+  margin: 5px 0;
+}
+
+.return-button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.return-button:hover {
+  background-color: #444;
+}
+#color-selector {
+  display: flex;
+  align-items: center;
+}
+
+#color-selector b {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#color-selector label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+#color-selector input[type="radio"] {
+  display: none;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
+
+.grey {
+  background-color: grey;
+}
+
+.gold {
+  background-color: gold;
+}
+

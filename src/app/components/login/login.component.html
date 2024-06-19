@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre planche concept</title>
+</head>
+<body>
+    <div class="container">
+        <div  class="card">
+            <div *ngIf="show1" class="content">
+                <div class="text-content">
+                    <p>Configurez votre projet et recevez :</p>
+                    <h1>Votre planche concept personnalisée pour votre projet</h1>
+                </div>
+                <div class="image-content">
+                    <img src="assets/images/l1.png" alt="Illustration">
+                </div>
+            </div>
+            <div *ngIf="show1" class="controls">
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button (click)=" next1()" class="next-button">Suivant</button>
+            </div>
+
+
+          <div  *ngIf="show2" class="content">
+              <div class="text-content">
+                  <p>Configurez votre projet et recevez :</p>
+                  <h1>Une sélection des luminaires les plus adaptés au concept</h1>
+              </div>
+              <div class="image-content">
+                  <img src="assets/images/l2.png" alt="Illustration">
+              </div>
+          </div>
+          <div  *ngIf="show2" class="controls">
+              <div class="dots">
+                  <span class="dot "></span>
+                  <span class="dot active"></span>
+                  <span class="dot"></span>
+              </div>
+              <button (click)=" next2()" class="next-button">Suivant</button>
+          </div>
+        <div *ngIf="show3" class="content">
+            <div class="text-content">
+                <p>Configurez votre projet et recevez :</p>
+                <h1>L'estimation financière du projet</h1>
+                <p>(Aucune CB nécessaire)</p>
+            </div>
+            <div class="image-content">
+                <img src="assets/images/l3.png" alt="Illustration">
+            </div>
+        </div>
+        <div *ngIf="show3" class="controls">
+            <div class="dots">
+                <span class="dot "></span>
+                <span class="dot "></span>
+                <span class="dot active"></span>
+            </div>
+            <button (click)=" next3()" class="next-button">Suivant</button>
+        </div>
+
+      <div *ngIf="show4">
+          <h1 class="padding-bottom">Se connecter</h1>
+          <div class="social-login">
+              <button class="google-btn">
+                  Google
+              </button>
+              <button class="facebook-btn">
+                  Facebook
+              </button>
+          </div>
+          <p>Ou inscrivez-vous en utilisant</p>
+          <form>
+              <div class="input-group">
+                  <input type="email" placeholder="Email" required>
+              </div>
+              <div class="input-group">
+                  <input type="password" placeholder="Mot de passe" required>
+                  <a href="#" class="forgot-password">Mot de passe oublié?</a>
+              </div>
+              <button (click)="login()" type="submit" class="login-btn">Se connecter</button>
+          </form>
+          <p>Vous n'avez pas encore de compte <button class="invisible-b" (click)="signin()">Inscrivez-vous</button></p>
+      </div>
+      <div *ngIf="show5">
+        <h1 class="padding-bottom">S'inscrire</h1>
+        <div class="social-login">
+            <button class="google-btn">
+                Google
+            </button>
+            <button class="facebook-btn">
+                Facebook
+            </button>
+        </div>
+        <p>Ou inscrivez-vous en utilisant</p>
+        <form>
+            <div class="input-group">
+                <input type="nom" placeholder="Nom" required>
+            </div>
+            <div class="input-group">
+                <input type="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="input-group">
+              <input type="email" placeholder="Email" required>
+          </div>
+          <div class="input-group">
+            <input type="numtel" placeholder="Num tel" required>
+        </div>
+        <div class="input-group">
+          <input type="nomAg" placeholder="Nom de l'agence" required>
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Mot de passe" required>
+        </div>
+            <button (click)="signup()" type="submit" class="login-btn">S'inscrire</button>
+        </form>
+    </div>
+    <div *ngIf="show6" class="content">
+
+      <div class="text-content">
+          <h1 class="center big">Connectez-vous</h1>
+          <p class="center">Et commencez votre projet</p>
+      </div>
+
+  </div>
+  <div *ngIf="show6" class="controls">
+    <button (click)=" next4()" class="next-button centerb">Architecte</button>
+    <button (click)=" next6()" class="next-button centerb">Admin</button>
+  </div>
+  </div>
+</div>
+</body>
+</html>

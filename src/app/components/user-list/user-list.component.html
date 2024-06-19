@@ -1,0 +1,29 @@
+<!-- src/app/components/user-list/user-list.component.html -->
+<div class="user-list-container">
+  <h1>List of Users</h1>
+  <div *ngIf="users.length === 0">Loading users...</div>
+  <div *ngIf="users.length > 0" class="users">
+    <div class="user-card" *ngFor="let user of users" (click)="selectUser(user)">
+      <h2>{{ user.data.Nom }}  {{ user.data.Prenom }}</h2>
+      <p><strong>Email:</strong> {{ user.data.Email }}</p>
+      <p *ngIf="user.data.NomAg"><strong>Nom agence:</strong> {{ user.data.NomAg }}</p>
+      <p *ngIf="user.data.NumTel"><strong>Num tel:</strong> {{ user.data.NumTel }}</p>
+      <p *ngIf="user.data.Confirmed"><strong>Confirmation:</strong> {{ user.data.Confirmed }}</p>
+      <div *ngIf="selectedUser === user" class="actions">
+        <button (click)="removeUser(); $event.stopPropagation()">Remove</button>
+        <button (click)="confirmUser(); $event.stopPropagation()">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <h1>List of Confirmed Users</h1>
+  <div *ngIf="users.length === 0">Loading confirmed users...</div>
+  <div *ngIf="users.length > 0" class="users">
+    <div class="user-card" *ngFor="let user of confirmedUsers" (click)="selectUser(user)">
+      <h2>{{ user.data.Nom }}  {{ user.data.Prenom }}</h2>
+      <p><strong>Email:</strong> {{ user.data.Email }}</p>
+      <p *ngIf="user.data.NomAg"><strong>Nom agence:</strong> {{ user.data.NomAg }}</p>
+      <p *ngIf="user.data.NumTel"><strong>Num tel:</strong> {{ user.data.NumTel }}</p>
+
+
+</div>

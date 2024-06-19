@@ -1,12 +1,19 @@
+
 export class Product {
-  Cas?: number;
+  Identifiant?: string;
   Marque?: string;
-  Puissance?: number;
-  Flux_lumineux?: string;
+  Modele?: string;
+  Type?: string;
+  Puissance?: string;
+  Finition?: string;
+  Forme?: string;
   Temperature_de_couleur?: string;
-  Efficacite_Lumineuse?: string;
-  Duree_de_vie?: string;
-  Image?: string;
+  Faisceau?: string;
+  Photo_luminaire?: string;
+  Photo_projet?: string;
+  Description?: string;
+  Espace_a_traiter?: string;
+
 }
 
 

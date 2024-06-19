@@ -1,14 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GoogleSheetsService } from './google-sheets.service';
+import { ProjectService } from './project.service';
 
-describe('GoogleSheetsService', () => {
-  let service: GoogleSheetsService;
+describe('ProjectService', () => {
+  let service: ProjectService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GoogleSheetsService);
+    service = TestBed.inject(ProjectService);
   });
+
 
   it('should be created', () => {
     expect(service).toBeTruthy();

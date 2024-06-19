@@ -34,7 +34,7 @@ export class ProductsListComponent implements OnInit {
       this.filteredProducts = this.products;
     } else {
       // Filter products based on selected combinations
-      this.filteredProducts = this.products.filter(product => selectedCombinations.includes(product.Cas.toString()));
+      this.filteredProducts = this.products.filter(product => selectedCombinations.includes(product.Identifiant.toString()));
     }
   }  refreshList(): void {
     this.currentProduct = undefined;

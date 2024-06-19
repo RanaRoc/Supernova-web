@@ -1,7 +1,7 @@
 @if (currentProduct) {
   <div class="product-details">
     <div class="image-container">
-      <img src="{{ currentProduct.Image }}" alt="Product Image" />
+      <img src="{{ currentProduct.Photo_luminaire }}" alt="Product Image" />
     </div>
     <div class="details-container">
       <form>
@@ -10,24 +10,32 @@
           <span>{{ currentProduct.Marque }}</span>
         </div>
         <div class="form-group">
-          <label for="description"><strong>Durée de vie:</strong></label>
-          <span>{{ currentProduct.Duree_de_vie }}</span>
+          <label for="description"><strong>Modèle :</strong></label>
+          <span>{{ currentProduct.Modele }}</span>
         </div>
         <div class="form-group">
-          <label for="effLumineuse"><strong>Efficacité lumineuse:</strong></label>
-          <span>{{ currentProduct.Efficacite_Lumineuse }}</span>
-        </div>
-        <div class="form-group">
-          <label for="fluxLumi"><strong>Flux Lumineux:</strong></label>
-          <span>{{ currentProduct.Flux_lumineux }}</span>
-        </div>
-        <div class="form-group">
-          <label for="puiss"><strong>Puissance:</strong></label>
+          <label for="effLumineuse"><strong>Puissance :</strong></label>
           <span>{{ currentProduct.Puissance }}</span>
+        </div>
+        <div class="form-group">
+          <label for="fluxLumi"><strong>Finition :</strong></label>
+          <span>{{ currentProduct.Finition }}</span>
+        </div>
+        <div class="form-group">
+          <label for="puiss"><strong>Forme:</strong></label>
+          <span>{{ currentProduct.Forme }}</span>
         </div>
         <div class="form-group">
           <label for="TempCoul"><strong>Température de couleur:</strong></label>
           <span>{{ currentProduct.Temperature_de_couleur }}</span>
+        </div>
+        <div class="form-group">
+          <label for="Faisc"><strong>Faisceau:</strong></label>
+          <span>{{ currentProduct.Faisceau }}</span>
+        </div>
+        <div class="form-group">
+          <label for="Descr"><strong>Description:</strong></label>
+          <span>{{ currentProduct.Description }}</span>
         </div>
       </form>
     </div>
