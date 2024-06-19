@@ -340,22 +340,28 @@
     </div>
     </div>
     <div *ngIf="showDetails" class="product-detail-container">
-      <div class="product-detail">
-        <div class="product-image">
-          <img class="image-top" [src]="selectedProduct.topImage || 'assets/images/chambre.jpg'" alt="Product Image" />
-          <button class="back-button" (click)="goBack()">←</button>
-          <button class="wishlist-button" [class.added]="selectedProduct.inWishlist" (click)="toggleWishlist(selectedProduct)">
-            {{ selectedProduct.inWishlist ? '❤️' : '♡' }}
-          </button>
-        </div>
-        <br>
-        <div class="product-info">
-          <img class="image-desc" [src]="selectedProduct.image || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" alt="Product Image" />
-          <h2>{{selectedProduct.Marque}}</h2>
-          <div class="product-description">
-            <p><strong>Description</strong></p>
-            <p>Puissance: {{selectedProduct.Puissance}} - Flux lumineux: {{selectedProduct.Flux_lumineux}} - Temperature de couleur: {{selectedProduct.Temperature_de_couleur}} - Efficacite Lumineuse: {{selectedProduct.Efficacite_Lumineuse}} - Duree de vie: {{selectedProduct.Duree_de_vie}}</p>
-          </div>
+  <div class="product-detail">
+    <div class="product-image">
+
+      <img class="image-top" [src]="selectedProduct?.Photo_projet ? 'assets/images/' + selectedProduct.Photo_projet : 'assets/images/chambre.jpg'" alt="Product Image" onerror="this.src='assets/images/chambre.jpg'" />
+      <button class="back-button" (click)="goBack()">←</button>
+      <button class="wishlist-button" [class.added]="selectedProduct.inWishlist">
+        {{ selectedProduct.inWishlist ? '❤️' : '♡' }}
+      </button>
+    </div>
+    <br>
+    <div class="product-info">
+      <img class="image-desc" [src]="'assets/images/' + selectedProduct.Photo_luminaire" alt="Product Image" />
+      <h2>{{selectedProduct.Marque}}</h2>
+      <p>{{selectedProduct.Modele}}</p>
+      <div class="product-description">
+        <p><strong>Description</strong></p>
+        <p>{{selectedProduct.Description}}</p>
+        <p><b>Type: </b>{{selectedProduct.Type}}</p>
+        <p><b>Puissance: </b>{{selectedProduct.Puissance}}</p>
+        <p><b>Forme: </b>{{selectedProduct.Forme}}</p>
+        <p><b>Température de couleur : </b>{{selectedProduct.Temperature_de_couleur}}</p>
+        <p><b>Faisceau : </b>{{selectedProduct.Faisceau}}</p>
           <div class="product-color">
             <p><strong>Couleur</strong></p>
             <div class="color-options">

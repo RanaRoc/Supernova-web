@@ -554,6 +554,9 @@ retrieveResponses(): void {
     this.responses = data;
   });
 }
-
+goBack(){
+  this.showDetails = false;
+  this.showResponse = true;
+}
 }
 
