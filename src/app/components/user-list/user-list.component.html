@@ -1,6 +1,7 @@
 <!-- src/app/components/user-list/user-list.component.html -->
 <div class="user-list-container">
-  <h1>List of Users</h1>
+  <button class="back-button1" (click)="goBack()">&#8592;</button>
+    <h1>List of Users</h1>
   <div *ngIf="users.length === 0">Loading users...</div>
   <div *ngIf="users.length > 0" class="users">
     <div class="user-card" *ngFor="let user of users" (click)="selectUser(user)">

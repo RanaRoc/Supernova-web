@@ -118,7 +118,10 @@
         </div>
             <button (click)="signup()" type="submit" class="login-btn">S'inscrire</button>
         </form>
+
     </div>
+
+
     <div *ngIf="show6" class="content">
 
       <div class="text-content">
@@ -130,6 +133,18 @@
   <div *ngIf="show6" class="controls">
     <button (click)=" next4()" class="next-button centerb">Architecte</button>
     <button (click)=" next6()" class="next-button centerb">Admin</button>
+  </div>
+  <div *ngIf="show7" >
+    <form>
+      <div class="input-group">
+          <input type="nom" placeholder="Nom" required>
+      </div>
+      <div class="input-group">
+          <input type="password" placeholder="Mot de passe" required>
+      </div>
+      <button (click)="loginA()" type="submit" class="login-btn">Se connecter</button>
+  </form>
+
   </div>
   </div>
 </div>

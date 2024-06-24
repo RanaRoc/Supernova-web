@@ -339,6 +339,7 @@
         <button (click)="nextSpace()" class="next-space">Espace suivant</button>
     </div>
     </div>
+
     <div *ngIf="showDetails" class="product-detail-container">
   <div class="product-detail">
     <div class="product-image">
@@ -375,14 +376,15 @@
         </div>
       </div>
     </div>
-    <div *ngIf="showProjectProducts"class="container">
+    </div>
+    <div *ngIf="showProjectProducts" class="container">
       <header>
           <button class="back-button1">&#8592;</button>
           <h1>Mon panier</h1>
           <button class="close-button">&times;</button>
       </header>
       <main>
-            <div class="products1"></div>
+            <div class="products1">
             <div class="product" *ngFor="let product of this.projectProducts">
               <img [src]="product.image|| 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
               <div class="product-info">
@@ -392,7 +394,7 @@
               <a href="#">{{ product.Espace }}</a>
               </div>
             </div>
-
+            </div>
           <form class="options">
               <label>
                   <input type="checkbox" checked>

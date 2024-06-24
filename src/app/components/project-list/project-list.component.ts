@@ -49,6 +49,7 @@ export class ProjectListComponent implements OnInit {
     for(let i =0;i<this.selectedProject.Products.length;i++){
       this.espace.push(this.selectedProject.Products[i].data.Espace_a_traiter);  // Ajouter l'espace à traiter à la liste
     }
+    console.log(this.espace);
 
 
   }

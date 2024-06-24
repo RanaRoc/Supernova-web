@@ -286,7 +286,8 @@ object-fit: cover;
 .categories {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 70%;
+    margin-right: 20%;
 }
 
 .category-item {

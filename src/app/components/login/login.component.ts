@@ -18,6 +18,7 @@ show3 = false;
 show4 = false;
 show5 = false;
 show6 = false;
+show7 = false;
 nom = '';
 prenom = '';
 email = '';
@@ -41,7 +42,8 @@ next4(){
   this.show6 = !this.show6;
 }
 next6(){
-  this.router.navigate(['/users']);
+  this.show6 = !this.show6;
+  this.show7 = !this.show7;
 }
 login() {
   this.email = (document.querySelector('input[type="email"]') as HTMLInputElement).value;
@@ -64,6 +66,16 @@ login() {
       alert('An error occurred during login');
     }
   );
+}
+loginA(){
+  this.email = (document.querySelector('input[type="nom"]') as HTMLInputElement).value;
+  this.mdp = (document.querySelector('input[type="password"]') as HTMLInputElement).value;
+  if(this.email == 'haitam' && this.mdp == 'supernova123'){
+    this.router.navigate(['/users']);
+  }
+  else{
+    alert('Invalid email or password');
+  }
 }
 
 signin(){

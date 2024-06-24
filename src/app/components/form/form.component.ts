@@ -451,13 +451,18 @@ nextSpace(){
   let selectedEspac =  this.selectedEspaces[this.selectedEspaces.indexOf(this.selectedEspace.value) + 1];
   if(this.lastEspac === selectedEspac || selectedEspac==undefined){
     console.log(this.projectProducts);
-    this.showProjectProducts = true;
-    this.showResponse = false;
+
     this.projectProducts = Object.keys(this.projectProducts).map(key => {
       const product = this.projectProducts[key];
-      product.Espace = key;
+      console.log(product)
+      product.Espace_a_traiter = key;
       return product;
     });
+    console.log("HIIIIIIIIIIIIIIIIIIIII");
+    this.showResponse = false;
+
+    this.showProjectProducts = true;
+
     const newProject: Project = {
       Nom: this.projectName,
       Products: this.projectProducts
@@ -487,6 +492,7 @@ send(product){
   this.showDetails = false;
   this.projectProducts[this.selectedEspace.label] = product;
 }
+
 selectCurrentEspace(value) {
   this.firstShow = true;
   this.showResponse = false;
@@ -499,13 +505,13 @@ selectCurrentEspace(value) {
     );
   });
 
-  const casValues = selectedResponses.map(response => response.Combinaisons);
+  let casValues = Array.from(new Set(selectedResponses.flatMap(response => [response.Choix1, response.Choix2, response.Choix3])));
 
   // Filter products where Cas matches any of the Cas values in the responses
   this.selectedProducts = this.products.filter(product =>
   casValues.includes(product.Identifiant)
   );
-  this.showResponse = true;
+    this.showResponse = true;
 
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -12,14 +12,16 @@ export class UserListComponent implements OnInit {
   confirmedUsers: { key: string, data: User }[] = [];
   selectedUser: { key: string, data: User } | null = null;
 
-  constructor(private userService: UserService) { }
+  constructor( private userService : UserService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
 this.updateConfirmedUsers();
 
-
   }
 
+  goBack() {
+    this.router.navigate(['/login']);
+  }
   selectUser(user: { key: string, data: User }): void {
     this.selectedUser = user;
   }
