@@ -284,7 +284,12 @@ onHauteurClickButton(){
 }
 onPoseButtonClick() {
 this.showSurface = false;
+if(this.selectedSurface != null && this.selectedSurface != undefined){
 this.showPose = true;
+}
+else{
+  this.showMaterial = true;
+}
 }
   selectSegment(segment: string) {
     this.selectedSegment = segment;
@@ -458,7 +463,6 @@ nextSpace(){
       product.Espace_a_traiter = key;
       return product;
     });
-    console.log("HIIIIIIIIIIIIIIIIIIIII");
     this.showResponse = false;
 
     this.showProjectProducts = true;
@@ -480,6 +484,9 @@ nextSpace(){
 }
 returnToMenu(){
   this.router.navigate(['/accueil'])
+}
+generateId(): number {
+  return Math.floor(Math.random() * 1000000);
 }
 
 showManu(){

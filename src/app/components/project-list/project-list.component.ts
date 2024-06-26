@@ -34,12 +34,25 @@ export class ProjectListComponent implements OnInit {
       this.projects = Object.values(data);
     });
   }
+  delete() {
+    console.log(this.selectedProject.key); // Add this line to verify the key
+    this.projectService.removeProject(this.selectedProject.key.toString()).then(() => {
+      // Re-fetch projects after deletion
+      this.projectService.getAll().valueChanges().subscribe((data) => {
+        this.projects = Object.values(data);
+      });
+      this.showList = true;
+      this.showProjectD = false;
+    }).catch(error => {
+      console.error("Error deleting project: ", error);
+    });
+  }
 
   showProject(project: Project) {
     this.showList = false;
     this.showProjectD = true;
     this.selectedProject = project;
-    this.extractEspaces();  // Appeler la méthode pour extraire les espaces
+     // this.extractEspaces();  // Appeler la méthode pour extraire les espaces
     console.log(this.selectedProject);
     console.log(this.espace);
   }
@@ -53,5 +66,6 @@ export class ProjectListComponent implements OnInit {
 
 
   }
+
 
 }

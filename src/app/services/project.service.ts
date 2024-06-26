@@ -15,10 +15,18 @@ export class ProjectService {
     this.projectsRef = db.list(this.dbPath);
   }
   addProject(project: Project): void {
+
      this.projectsRef.push(project);
   }
   getAll(): AngularFireList<Project> {
     return this.projectsRef;
+  }
+  removeProject(id: string): Promise<void> {
+    return this.projectsRef.remove(id);
+  }
+
+  updateProject(id: string, updatedProject: Project): Promise<void> {
+    return this.projectsRef.update(id, updatedProject);
   }
 
 
