@@ -23,6 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "baseHref": "/Supernova-web/",
             "outputPath": "dist/angular-17-firebase-crud",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -44,6 +45,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
+
           "configurations": {
             "production": {
               "budgets": [
