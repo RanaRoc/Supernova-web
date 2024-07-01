@@ -196,8 +196,17 @@ export class FiltreComponent {
   responses = [];
   produits = [];
 
-goToFavorite(): void {
-  this.router.navigate(['/wishlist'], { state: { user: this.user } });
+goToAccueil(){
+  this.router.navigate(['/accueil']);
+}
+goToWishlist(){
+  this.router.navigate(['/wishlist']);
+}
+goToLogin(){
+  this.router.navigate(['/login']);
+}
+goToProjects(){
+  this.router.navigate(['/projects']);
 }
 
   onSegmentChange(segment: string, event: Event): void {

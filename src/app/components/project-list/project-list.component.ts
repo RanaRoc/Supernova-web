@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { UserService } from '../../services/user.service';
 import { Project } from '../../models/project.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -27,8 +28,20 @@ export class ProjectListComponent implements OnInit {
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/autre.jpg', alt: 'Image 3' },
   ];
 
-  constructor(private projectService: ProjectService, private userService: UserService) {}
+  constructor(private projectService: ProjectService, private userService: UserService, private router : Router) {}
 
+  goToAccueil(){
+    this.router.navigate(['/accueil']);
+  }
+  goToWishlist(){
+    this.router.navigate(['/wishlist']);
+  }
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
+  goToProjects(){
+    this.router.navigate(['/projects']);
+  }
   ngOnInit() {
     this.projectService.getAll().valueChanges().subscribe((data) => {
       this.projects = Object.values(data);

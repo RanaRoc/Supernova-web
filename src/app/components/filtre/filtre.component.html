@@ -20,22 +20,23 @@
               <p>Voir et modifier le profile</p>
           </div>
           <nav>
-              <ul>
-                  <li class="active"><a href="#"> <img class="padding-right" src="assets/images/home.png" alt="home"> Accueil</a> </li>
-                  <li> <a href="wishlist"> <img class="padding-right" src="assets/images/heart.png" alt="Favorie"> Favorie</a></li>
-
-                  <li>
-
-                    <a href="projects"> <img class="padding-right"  src="assets/images/folder.png" alt="Projet"> Projet</a></li>
-              </ul>
-          </nav>
-          <div class="settings">
-              <ul>
+            <ul>
+                <li class="active"><div (click)="goToAccueil()"> <img class="padding-right" src="assets/images/home.png" alt="home"> Accueil</div> </li>
+                <li> <div  (click)="goToWishlist()"><img class="padding-right" src="assets/images/heart.png" alt="Favorie"> Favoris </div></li>
                 <li>
-                    <img class="padding-right" src="assets/images/logout.png" alt="Logout">
-                    <a href="login">  Logout</a></li>
-              </ul>
-          </div>
+
+                 <div (click)="goToProjects()"> <img class="padding-right"  src="assets/images/folder.png" alt="Projet"> Projet</div></li>
+            </ul>
+        </nav>
+        <div class="settings">
+            <ul>
+
+                <li>
+                  <div (click)="goToLogin()">
+                  <img class="padding-right" src="assets/images/logout.png" alt="Logout">
+                   Logout</div></li>
+            </ul>
+        </div>
       </aside>
 
     <main *ngIf="!showProduit && !showDetails && !showManufacture" class="main-content">

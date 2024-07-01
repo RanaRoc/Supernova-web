@@ -33,5 +33,16 @@ export class AccueilComponent {
   goToFiltre(){
     this.router.navigate(['/filtre']);
   }
-
+  goToAccueil(){
+    this.router.navigate(['/accueil']);
+  }
+  goToWishlist(){
+    this.router.navigate(['/wishlist']);
+  }
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
+  goToProjects(){
+    this.router.navigate(['/projects']);
+  }
 }
