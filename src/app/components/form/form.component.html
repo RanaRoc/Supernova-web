@@ -305,6 +305,7 @@
     <div class="header">
       <div class="back-arrow">←</div>
       <p class="left"> Résultat de </p>
+      </div>
       <div class="categories">
         <div class="category-item"
              *ngFor="let espace of filteredEspaces"
@@ -314,7 +315,6 @@
           <p>{{ espace.label }}</p>
         </div>
       </div>
-    </div>
 
 
 
@@ -386,12 +386,16 @@
       <main>
             <div class="products1">
             <div class="product" *ngFor="let product of this.projectProducts">
-              <img [src]="product.image|| 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
+              <img class="img-summ" [src]="'assets/images/' +product.Photo_luminaire || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
               <div class="product-info">
-              <h2>{{ product.Marque }}</h2>
-              <p>{{ product.label }}</p>
-              <p>Couleur - Noir</p>
-              <a href="#">{{ product.Espace }}</a>
+              <h2 class="left"> <b>Marque : </b>{{ product.Marque }}</h2>
+              <p class="left purple"> <b>Espace à traiter :</b> {{ product.Espace_a_traiter }}</p>
+              <p class="left"> <b>Modèle : </b>{{ product.Modele }}</p>
+              <p class="left"> <b>Puissance : </b>{{ product.Puissance }}</p>
+              <p class="left"> <b>Température de couleur : </b>{{ product.Temperature_de_couleur }}</p>
+              <p class="left"> <b>Faisceau : </b>{{ product.Faisceau }}</p>
+              <p class="left"> <b>Forme : </b>{{ product.Forme }}</p>
+              <p class="left"> <b>Finition : </b>{{ product.Finition }}</p>
               </div>
             </div>
             </div>

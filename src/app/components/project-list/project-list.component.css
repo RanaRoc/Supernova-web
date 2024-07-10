@@ -7,7 +7,7 @@ font-family: 'Montserrat', sans-serif;
 
 body {
   display: flex;
-  height: 100vh;
+
   background-color: #f0f4f8;
 }
 
@@ -16,6 +16,9 @@ body {
   width: 100%;
 }
 
+.pointer{
+  cursor: pointer;
+}
 
 header {
   display: flex;
@@ -167,12 +170,15 @@ border-radius: 5%;}
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 .container1{
-padding-left: 15%;
+padding-left:5%;
+padding-right: 5%;
 }
 .profile {
   text-align: center;
   margin-bottom: 40px;
 }
+
+
 
 .profile img {
   width: 80px;
@@ -233,5 +239,13 @@ nav ul li.active a {
 
 .main-content {
   flex: 1;
-  padding: 40px;
+}
+
+.img-summ{
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.left{
+  justify-content: left!important;
 }

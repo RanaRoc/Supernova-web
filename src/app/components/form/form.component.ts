@@ -249,6 +249,11 @@ private unsubscribe$: Subject<void> = new Subject<void>();
     } else {
       this.selectedEspaces.push(value);
     }
+    this.selectedEspaces.sort((a, b) => {
+      return this.espaces.findIndex(segment => segment.value === a) - this.espaces.findIndex(segment => segment.value === b);
+
+    });
+    console.log("selected eSPACES"+this.selectedEspaces)
   }
 
 
@@ -272,17 +277,26 @@ private unsubscribe$: Subject<void> = new Subject<void>();
   }
 onFinitionClickButton(){
   this.showForme = false;
+  window.scrollTo(0, 0);
   this.showFinition = true;
 }
 onMaterialClickButton(){
+  window.scrollTo({
+    top: 0,
+  });
+
   this.showPose = false;
   this.showMaterial = true;
 }
 onHauteurClickButton(){
+  window.scrollTo(0, 0);
+
   this.showMaterial = false;
   this.showHauteur = true;
 }
 onPoseButtonClick() {
+  window.scrollTo(0, 0);
+
 this.showSurface = false;
 if(this.selectedSurface != null && this.selectedSurface != undefined){
 this.showPose = true;
@@ -297,11 +311,15 @@ else{
     this.showSegment = false;
   }
   onNextButtonClick() {
+    window.scrollTo(0, 0);
+
     this.showNextPage= false;
     this.showProjectNameQuestion = true;
     this.showPreviousQuestion = false;
   }
   onNextButtonClick2() {
+    window.scrollTo(0, 0);
+
     if(this.selectedStyle!=null){
     this.showNextPage= false;
     this.showProjectNameQuestion = false;
@@ -313,6 +331,8 @@ else{
     this.router.navigate(['/accueil']);
   }
   onNextButtonClick1() {
+    window.scrollTo(0, 0);
+
     if(this.selectedWidget!=null){
     this.showNextPage= false;
     this.showProjectNameQuestion = false;
@@ -321,21 +341,29 @@ else{
     }
   }
   ongoBack(){
+    window.scrollTo(0, 0);
+
     this.showSegment = false;
     this.showType = false;
     this.showProjectNameQuestion = true;
 
   }
   onStandingButtonClick() {
+    window.scrollTo(0, 0);
+
   this.showStyle = false;
   this.showNextPage = true;
   }
   onSegmentButtonClick(){
+    window.scrollTo(0, 0);
+
     this.showSegment = true;
     this.showType = false;
 
   }
   onFormeButtonClick() {
+    window.scrollTo(0, 0);
+
    this.showForme = true;
     this.showHauteur = false;
     const inputElement = document.getElementById('input-h') as HTMLInputElement;
@@ -347,27 +375,39 @@ else{
   }
   onFinitionToForme(){
     this.showFinition = false;
+    window.scrollTo(0, 0);
+
     this.showForme = true;
   }
   onFormeToHauteur(){
     this.showForme = false;
+    window.scrollTo(0, 0);
+
     this.showHauteur = true;
   }
   onModeToSurface(){
     this.showPose = false;
+    window.scrollTo(0, 0);
+
     this.showSurface = true;
   }
   onMaterialToMode(){
     this.showMaterial = false;
+    window.scrollTo(0, 0);
+
     this.showPose = true;
 
   }
   onHauteurToMaterial(){
     this.showHauteur = false;
+    window.scrollTo(0, 0);
+
     this.showMaterial = true;
   }
   onSurfaceToEspace(){
     this.showSurface = false;
+    window.scrollTo(0, 0);
+
     if(this.selectedSegment === 'Résidentiel'){
 
     this.showEspace = true;}
@@ -377,17 +417,25 @@ else{
   }
   onEspaceToNext(){
     this.showEspace = false;
+    window.scrollTo(0, 0);
+
     this.showNextPage = true;
   }
   onStandingToStyle(){
     this.showNextPage = false;
+    window.scrollTo(0, 0);
+
     this.showStyle = true;
   }
   onStyleToType(){
     this.showStyle = false;
+    window.scrollTo(0, 0);
+
     this.showType = true;
   }
   onNextStepButtonClick() {
+    window.scrollTo(0, 0);
+
     const inputElement = document.getElementById('input') as HTMLInputElement;
     if(inputElement.value.trim() != '') {
     this.showProjectNameQuestion = false;
@@ -398,6 +446,7 @@ else{
     }
   }
   onStyleButtonClick() {
+    window.scrollTo(0, 0);
 
     this.showStyle = true;
     this.showType = false;
@@ -405,23 +454,30 @@ else{
   onBackButtonClick() {
     this.showProjectNameQuestion = false;
     this.showPreviousQuestion = false;
+    window.scrollTo(0, 0);
+
     this.showNextPage=false;
     this.showPreviousQuestion = true;
 
   }
   onSurfaceButtonClick() {
+    window.scrollTo(0, 0);
+
     if (this.selectedEspaces.length > 0) {
       this.showEspace = false;
       this.showSurface = true;
     }
   }
   filterEspaces(): void {
+
     this.filteredEspaces = this.espaces.filter(espace => {
       return this.selectedEspaces.includes(espace.value);
     });
   }
 
   onEspaceButtonClick() {
+    window.scrollTo(0, 0);
+
     this.showNextPage = false;
     this.showHauteur = false;
     if(this.selectedSegment === 'Résidentiel'){
@@ -469,7 +525,8 @@ nextSpace(){
 
     const newProject: Project = {
       Nom: this.projectName,
-      Products: this.projectProducts
+      Products: this.projectProducts,
+      Espace : this.filteredEspaces
     };
 
     this.projectService.addProject(newProject);
@@ -484,9 +541,6 @@ nextSpace(){
 }
 returnToMenu(){
   this.router.navigate(['/accueil'])
-}
-generateId(): number {
-  return Math.floor(Math.random() * 1000000);
 }
 
 showManu(){

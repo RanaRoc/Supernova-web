@@ -3,6 +3,7 @@ import { ProjectService } from '../../services/project.service';
 import { UserService } from '../../services/user.service';
 import { Project } from '../../models/project.model';
 import { Router } from '@angular/router';
+import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -15,7 +16,7 @@ export class ProjectListComponent implements OnInit {
   showList = true;
   showProjectD = false;
   selectedProject: Project;
-  espace: string[] = [];  // Change to string array to store space strings
+  espace  = [];
   espaceOptions: { value: string, label: string, image: string, alt: string }[] = [];
   espaces: { value: string, label: string, image: string, alt: string }[] = [
     { value: 'chambres', label: 'chambres', image: 'assets/images/chambre.jpg', alt: 'Image 1' },
@@ -47,37 +48,42 @@ export class ProjectListComponent implements OnInit {
       this.projects = Object.values(data);
     });
   }
-  delete() {
+  deleteP() {
     console.log(this.selectedProject.key); // Add this line to verify the key
-    this.projectService.removeProject(this.selectedProject.key.toString()).then(() => {
+    this.projectService.removeProjectByName(this.selectedProject.Nom).then(() => {
       // Re-fetch projects after deletion
       this.projectService.getAll().valueChanges().subscribe((data) => {
         this.projects = Object.values(data);
       });
-      this.showList = true;
-      this.showProjectD = false;
-    }).catch(error => {
+this.goBack();    }).catch(error => {
       console.error("Error deleting project: ", error);
     });
   }
-
+  goBack() {
+    this.showList = true;
+    this.showProjectD = false;
+  }
   showProject(project: Project) {
     this.showList = false;
     this.showProjectD = true;
     this.selectedProject = project;
-     // this.extractEspaces();  // Appeler la méthode pour extraire les espaces
-    console.log(this.selectedProject);
+    this.extractEspaces();  // Appeler la méthode pour extraire les espaces
+    console.log(this.selectedProject.Products[0]);
     console.log(this.espace);
   }
 
 
   extractEspaces() {
-    for(let i =0;i<this.selectedProject.Products.length;i++){
-      this.espace.push(this.selectedProject.Products[i].data.Espace_a_traiter);  // Ajouter l'espace à traiter à la liste
+    // Initialize a new Set to hold unique values
+    const uniqueEspaces = new Set();
+
+    // Iterate over the Products and add each Espace_a_traiter to the Set
+    for (let i = 0; i < this.selectedProject.Products.length; i++) {
+      uniqueEspaces.add(this.selectedProject.Products[i].Espace_a_traiter);
     }
-    console.log(this.espace);
 
-
+    // Convert the Set back to an array and assign it to this.espace
+    this.espace = Array.from(uniqueEspaces);
   }
 
 

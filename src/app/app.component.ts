@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './services/product.service';
 import { ResponseService } from './services/response.service';
+import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private responseService: ResponseService
+    private responseService: ResponseService,
+    private authService : AuthService
   ) {}
 
   sendEmail() {
@@ -47,6 +49,13 @@ export class AppComponent implements OnInit {
     });
   }
   async ngOnInit() {
+    this.authService.getAuthState().subscribe(user => {
+      if (user) {
+        console.log('User is signed in:', user);
+      } else {
+        console.log('No user is signed in.');
+      }
+    });
 
     //this.googleSheetsService.fetchDataFromGoogleSheet();
   }

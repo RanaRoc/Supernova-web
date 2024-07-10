@@ -3,7 +3,11 @@ import { Product } from "./product.model";
 export class Project {
   key?: number;
   Nom?: string;
-  Products?: { key: string, data: Product }[] = [];
+  Products?: Product[] = [];
+  Espace?: espace[] = [];
 }
+
+class espace {
+  value: string; label: string; image: string; alt: string;}
 
 

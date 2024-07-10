@@ -354,6 +354,10 @@ h1 {
   height: auto;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 .wishlist-button {
   position: absolute;
   top: 10px;

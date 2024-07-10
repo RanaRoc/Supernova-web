@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  registrationForm: FormGroup;
 
-  constructor( private userService : UserService, private router: Router) { }
+  constructor( private userService : UserService, private router: Router,private auth: AngularFireAuth, private fb: FormBuilder) { }
+  ngOnInit(): void {
+    this.registrationForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
 show1 = true;
 show2 = false;
@@ -53,6 +62,8 @@ login() {
       if (user) {
         if (user.Confirmed) {
           alert('Your account is confirmed, welcome!');
+          this.auth.signInWithEmailAndPassword(this.email, this.mdp)
+
           this.router.navigate(['/accueil']);
         } else {
           alert('Your account is not confirmed yet, please check your email');
@@ -102,6 +113,7 @@ async signup(){
     };
 
   this.userService.addUser(newUser);
+  this.auth.createUserWithEmailAndPassword(this.email, this.mdp);
 
     try {
       const response = await fetch('http://localhost:3000/api/send-email', {
