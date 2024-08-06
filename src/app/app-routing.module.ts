@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 const routes: Routes = [
   { path: 'form', component: FormComponent },
   { path: 'accueil', component: AccueilComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
 { path: 'login', component: LoginComponent },
 { path: 'users', component: UserListComponent },
 { path: 'wishlist', component: WishlistComponent },
-{ path: 'projects',component: ProjectListComponent}
+{ path: 'projects',component: ProjectListComponent},
+{ path: 'file-upload',component: FileUploadComponent}
 ];
 
 @NgModule({

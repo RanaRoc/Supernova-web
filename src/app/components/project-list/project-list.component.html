@@ -65,7 +65,37 @@
               <button class="favorite-button">&#9825;</button>
           </header>
           <main>
-              <div class="content">
+            <!--
+            <div class="dashboard">
+              <h2>Dashboard</h2>
+              <p>Standing: {{ selectedProject.Dashboard.Standing }}</p>
+              <p>Espace à traiter: {{ selectedProject.Dashboard.Espace_a_traiter }}</p>
+              <p>Style: {{ selectedProject.Dashboard.Style }}</p>
+              <p>Forme:</p>
+              <div *ngFor="let espace of selectedProject.Espace">
+                <p>{{ selectedProject.Dashboard.Forme[espace.value] }}</p>
+              </div>
+              <p>Surface de pose: </p>
+
+              <div *ngFor="let espace of selectedProject.Espace">
+                <p>{{ selectedProject.Dashboard.Surface_de_pose[espace.value] }}</p>
+              </div>
+              <p>Mode de pose:</p>
+              <div *ngFor="let espace of selectedProject.Espace">
+                <p>{{ selectedProject.Dashboard.Mode_de_pose[espace.value] }}</p>
+              </div>
+              <p>Type de projet: {{ selectedProject.Dashboard.Type_de_projet }}</p>
+              <p>Matériaux de surface de pose:</p>
+              <div *ngFor="let espace of selectedProject.Espace">
+                <p>{{ selectedProject.Dashboard.Materiaux_de_surface_de_pose[espace.value] }}</p>
+              </div>
+              <p>Finition:</p>
+              <div *ngFor="let espace of selectedProject.Espace">
+                <p>{{ selectedProject.Dashboard.Finition[espace.value] }}</p>
+              </div>
+
+            </div>
+            -->
                   <section class="spaces">
                       <h2>Les espaces traités</h2>
                         <div class="space-list">
@@ -89,6 +119,7 @@
                           </label>
                       </form>
                       <div class="buttons">
+                        <button class="envoyer-button" (click)="envoyer()">Envoyer</button>
                           <button class="modify-button">Modifier</button>
                           <button class="delete-button" (click)="deleteP()">Supprimer</button>
                       </div>
@@ -97,17 +128,17 @@
                       <h2>Les produit</h2>
                       <div class="product-list">
                           <div *ngFor="let product of selectedProject.Products" class="product" >
-                            <img class="img-summ" [src]="'assets/images/' +product.Photo_luminaire || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
+                            <img class="img-summ" [src]="convertDropboxLink(product.Photo_luminaire) || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
                               <div class="product-info">
                                 <h3 class="left">{{product.Marque}}</h3>
                                   <p class="left">{{product.Modele}}</p>
                                   <p class="left">Couleur - {{product.Finition}}</p>
                                   <p class="left">{{product.Espace_a_traiter}}</p>
+
                               </div>
                           </div>
                       </div>
                   </section>
-              </div>
           </main>
       </div>
 

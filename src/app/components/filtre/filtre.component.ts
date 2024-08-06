@@ -208,6 +208,23 @@ goToLogin(){
 goToProjects(){
   this.router.navigate(['/projects']);
 }
+convertDropboxLink(originalLink: string): string {
+  // Validate the original Dropbox link format
+  const dropboxUrlPattern = /^https:\/\/www\.dropbox\.com\/scl\/fi\//;
+  console.log('original link :', originalLink);
+  if (!dropboxUrlPattern.test(originalLink)) {
+    console.error('Invalid Dropbox link.');
+    return originalLink; // Return the original link if it doesn't match Dropbox format
+  }
+
+  // Replace 'www.dropbox.com' with 'dl.dropboxusercontent.com'
+  const directLink = originalLink.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+
+  // Remove all unnecessary query parameters and set raw=1
+  const urlWithoutParams = directLink.split('?')[0];
+  return directLink;
+}
+
 
   onSegmentChange(segment: string, event: Event): void {
     const checkbox = event.target as HTMLInputElement;

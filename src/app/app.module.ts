@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
 
@@ -36,6 +37,7 @@ import { ProjectListComponent } from './components/project-list/project-list.com
     UserListComponent,
     WishlistComponent,
     ProjectListComponent,
+    FileUploadComponent,
   ],
   imports: [
     HttpClientModule,

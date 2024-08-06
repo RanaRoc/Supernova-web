@@ -104,13 +104,18 @@ h1 {
   gap: 10px;
 }
 
-.modify-button, .delete-button {
+.modify-button, .delete-button, .envoyer-button {
   flex: 1;
   padding: 10px;
   font-size: 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  margin-bottom: 20 px;
+}
+.envoyer-button {
+  background-color: #fff;
+  color: #443f3f;
 }
 
 .modify-button {

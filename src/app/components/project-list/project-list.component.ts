@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Project } from '../../models/project.model';
 import { Router } from '@angular/router';
 import { Product } from '../../models/product.model';
+import { PdfGenerationService } from '../../services/pdf-generation.service';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -29,7 +30,7 @@ export class ProjectListComponent implements OnInit {
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/autre.jpg', alt: 'Image 3' },
   ];
 
-  constructor(private projectService: ProjectService, private userService: UserService, private router : Router) {}
+  constructor(private projectService: ProjectService, private userService: UserService, private router : Router, private pdfService :PdfGenerationService) {}
 
   goToAccueil(){
     this.router.navigate(['/accueil']);
@@ -47,6 +48,9 @@ export class ProjectListComponent implements OnInit {
     this.projectService.getAll().valueChanges().subscribe((data) => {
       this.projects = Object.values(data);
     });
+  }
+  generatePdf() {
+    this.pdfService.generatePdf(this.selectedProject);
   }
   deleteP() {
     console.log(this.selectedProject.key); // Add this line to verify the key
@@ -71,7 +75,21 @@ this.goBack();    }).catch(error => {
     console.log(this.selectedProject.Products[0]);
     console.log(this.espace);
   }
+  convertDropboxLink(originalLink: string): string {
+    // Validate the original Dropbox link format
 
+    // Replace 'www.dropbox.com' with 'dl.dropboxusercontent.com'
+    const directLink = originalLink.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+
+    // Remove all unnecessary query parameters and set raw=1
+    return directLink;
+  }
+
+envoyer(){
+  console.log("SEEND")
+  this.generatePdf();
+
+}
 
   extractEspaces() {
     // Initialize a new Set to hold unique values

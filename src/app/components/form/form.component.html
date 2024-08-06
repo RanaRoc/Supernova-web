@@ -9,10 +9,11 @@
 
 
       <div class="widget">
-        <img src="assets/images/message.png" alt="Image 1">
+        <img src="assets/images/message.png" alt="Image from Google Drive">
         <h5 class="title">C’est Rapide !</h5>
         <p>Le questionnaire prend moins de 5 minutes, aucun document n’est nécessaire.</p>
       </div>
+
       <div class="widget">
         <img src="assets/images/outil.png" alt="Image 2">
         <h5 class="title">On vous accompagne</h5>
@@ -43,6 +44,7 @@
       <button class="button" (click)="onNextStepButtonClick()">Suivant</button>
     </div>
   </div>
+
 
   <div *ngIf="showNextPage">
     <p> Quel est</p>
@@ -325,7 +327,7 @@
 
               <!-- Repeat for each product in this.selectedProducts -->
               <div class="product-card" *ngFor="let product of this.selectedProducts" [class.selected]="this.projectProducts[this.selectedEspace.label] === product || firstShow">
-                <img [src]="'assets/images/' + product.Photo_luminaire || 'assets/images/l1.png'" alt="Product">
+                <img [src]=" convertDropboxLink(product.Photo_luminaire) || 'assets/images/l1.png'" alt="Product">
                 <p class="product-name">{{ product.Marque }}</p>
                 <p > {{product.Modele}}</p>
                 <div class="product-actions">
@@ -344,7 +346,7 @@
   <div class="product-detail">
     <div class="product-image">
 
-      <img class="image-top" [src]="selectedProduct?.Photo_projet ? 'assets/images/' + selectedProduct.Photo_projet : 'assets/images/chambre.jpg'" alt="Product Image" onerror="this.src='assets/images/chambre.jpg'" />
+      <img class="image-top" [src]="selectedProduct?.Photo_projet ?  convertDropboxLink(selectedProduct.Photo_projet) : 'assets/images/chambre.jpg'" alt="Product Image" onerror="this.src='assets/images/chambre.jpg'" />
       <button class="back-button" (click)="goBack()">←</button>
       <button class="wishlist-button" [class.added]="selectedProduct.inWishlist">
         {{ selectedProduct.inWishlist ? '❤️' : '♡' }}
@@ -352,7 +354,7 @@
     </div>
     <br>
     <div class="product-info">
-      <img class="image-desc" [src]="'assets/images/' + selectedProduct.Photo_luminaire" alt="Product Image" />
+      <img class="image-desc" [src]="selectedProduct.Photo_luminaire?  convertDropboxLink(selectedProduct.Photo_luminaire) : 'assets/images/l1.png'" alt="Product Image" />
       <h2>{{selectedProduct.Marque}}</h2>
       <p>{{selectedProduct.Modele}}</p>
       <div class="product-description">
@@ -386,7 +388,7 @@
       <main>
             <div class="products1">
             <div class="product" *ngFor="let product of this.projectProducts">
-              <img class="img-summ" [src]="'assets/images/' +product.Photo_luminaire || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
+              <img class="img-summ" [src]="convertDropboxLink(product.Photo_luminaire) || 'https://tekled.co.uk/cdn/shop/articles/What_is_a_Conventional_Light-775007.jpg?v=1680528977'" [alt]="product.Marque">
               <div class="product-info">
               <h2 class="left"> <b>Marque : </b>{{ product.Marque }}</h2>
               <p class="left purple"> <b>Espace à traiter :</b> {{ product.Espace_a_traiter }}</p>

@@ -163,7 +163,7 @@
     <div class="product-grid">
       <div *ngFor="let product of produits" class="product-card">
         <div class="card-image">
-            <img [src]="'assets/images/' + product.Photo_luminaire" [alt]="product.name" />
+            <img [src]="convertDropboxLink(product.Photo_luminaire)" [alt]="product.name" />
             <button (click)="toggleWishlist(product)" class="wishlist-button" [class.added]="product.inWishlist" id="wish{{product.Identifiant}}">
             {{ product.inWishlist ? '❤️' : '♡' }}
           </button>
@@ -189,7 +189,7 @@
   <div class="product-detail">
     <div class="product-image">
 
-      <img class="image-top" [src]="selectedProduct?.Photo_projet ? 'assets/images/' + selectedProduct.Photo_projet : 'assets/images/chambre.jpg'" alt="Product Image" (error)="handleImageError($event)" onerror="this.src='assets/images/chambre.jpg'" />
+      <img class="image-top" [src]="selectedProduct?.Photo_projet ? convertDropboxLink(product.Photo_projet) : 'assets/images/chambre.jpg'" alt="Product Image" (error)="handleImageError($event)" onerror="this.src='assets/images/chambre.jpg'" />
       <button class="back-button" (click)="goBack()">←</button>
       <button class="wishlist-button" [class.added]="selectedProduct.inWishlist" (click)="toggleWishlist(selectedProduct)">
         {{ selectedProduct.inWishlist ? '❤️' : '♡' }}
@@ -197,7 +197,7 @@
     </div>
     <br>
     <div class="product-info">
-      <img class="image-desc" [src]="'assets/images/' + selectedProduct.Photo_luminaire" alt="Product Image" />
+      <img class="image-desc" [src]="convertDropboxLink(product.Photo_luminaire)" alt="Product Image" />
       <h2>{{selectedProduct.Marque}}</h2>
       <p>{{selectedProduct.Modele}}</p>
       <div class="product-description">

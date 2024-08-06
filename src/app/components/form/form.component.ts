@@ -8,9 +8,9 @@ import { Product } from '../../models/product.model';
 import { map } from 'rxjs/operators';
 import { Subject, forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
-import { Project } from '../../models/project.model';
+import { Project, resp } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
-
+import { PdfGenerationService } from '../../services/pdf-generation.service';
 // I NEED TO HANDLE AUTRE AND JE NE SAIS PAS
 @Component({
   selector: 'app-form',
@@ -55,6 +55,7 @@ export class FormComponent {
   selectedHauteur = {};
   selectedForme = {};
   selectedFinition = {};
+  newProject : Project;
   filteredEspaces: { value: string, label: string, image: string, alt: string }[] = [];
 private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -109,7 +110,7 @@ private unsubscribe$: Subject<void> = new Subject<void>();
 
   espaces: { value: string, label: string, image: string, alt: string }[] = [
     { value: 'Chambre', label: 'Chambre', image: 'assets/images/chambre.jpg', alt: 'Image 1' },
-    { value: 'Salon / séjour', label: 'Salon / séjour', image: 'assets/images/salon.jpg', alt: 'Image 2' },
+    { value: 'Salon', label: 'Salon / séjour', image: 'assets/images/salon.jpg', alt: 'Image 2' },
     { value: 'Cuisine', label: 'Cuisine', image: 'assets/images/cuisine.jpg', alt: 'Image 3' },
     { value: 'Salle de bain', label: 'Salle de bain', image: 'assets/images/salle_de_bain.jpg', alt: 'Image 4' },
     { value: 'Abords exterieur', label: 'Abords exterieur', image: 'assets/images/bandelerie.jpg', alt: 'Image 6' },
@@ -214,9 +215,12 @@ private unsubscribe$: Subject<void> = new Subject<void>();
 
   selectedProduct: any;
 
-  constructor(private productService: ProductService, private responseService: ResponseService,private router: Router, private projectService : ProjectService) { }
+  constructor(private productService: ProductService, private responseService: ResponseService,private router: Router, private projectService : ProjectService, private pdfGenerationService : PdfGenerationService) { }
   selectWidget(standing: string) {
     this.selectedWidget = standing;
+  }
+  generatePdf() {
+    this.pdfGenerationService.generatePdf(this.newProject);
   }
   selectPose(espace, value) {
     this.selectedPose[espace] = value;
@@ -469,10 +473,10 @@ else{
     }
   }
   filterEspaces(): void {
-
     this.filteredEspaces = this.espaces.filter(espace => {
       return this.selectedEspaces.includes(espace.value);
     });
+    console.log(this.filteredEspaces);
   }
 
   onEspaceButtonClick() {
@@ -508,8 +512,9 @@ ngOnInit(): void {
 }
 lastEspac ="";
 nextSpace(){
-
+  console.log(this.selectedEspaces);
   let selectedEspac =  this.selectedEspaces[this.selectedEspaces.indexOf(this.selectedEspace.value) + 1];
+  console.log(selectedEspac);
   if(this.lastEspac === selectedEspac || selectedEspac==undefined){
     console.log(this.projectProducts);
 
@@ -522,13 +527,27 @@ nextSpace(){
     this.showResponse = false;
 
     this.showProjectProducts = true;
+    console.log(this.selectedForme);
+    const responses: resp = {
+      Segment: this.selectedSegment,
+      Standing: this.selectedWidget,
+      Espace_a_traiter: this.selectedEspace.label,
+      Style: this.selectedStyle,
+      Forme: this.selectedForme , // Ensure selectedForme is of type string[]
+      Surface_de_pose: this.selectedSurface,
+      Mode_de_pose: this.selectedPose,
+      Type_de_projet: this.selectedType,
+      Materiaux_de_surface_de_pose: this.selectedMaterial,
+      Finition: this.selectedFinition
+    };
 
     const newProject: Project = {
       Nom: this.projectName,
       Products: this.projectProducts,
-      Espace : this.filteredEspaces
+      Espace : this.filteredEspaces,
+      Dashboard : responses
     };
-
+this.newProject = newProject;
     this.projectService.addProject(newProject);
 
     console.log(this.projectProducts);
@@ -544,6 +563,7 @@ returnToMenu(){
 }
 
 showManu(){
+  this.generatePdf();
   this.showProjectProducts = false;
   this.showManufacture =true;
 }
@@ -561,7 +581,7 @@ selectCurrentEspace(value) {
   this.selectedEspace = value;
   let selectedResponses = this.responses.filter(response => {
     return (
-      (this.selectedEspace.value === "" || response.Espace_a_traiter === this.selectedEspace.value)
+      (this.selectedEspace.label === "" || response.Espace_a_traiter === this.selectedEspace.label)
 
     );
   });
@@ -586,7 +606,7 @@ selectCurrentEspace(value) {
 this.showResponse = true;
 let selectedResponses = this.responses.filter(response => {
   return (
-    (this.selectedEspace.value === "" || response.Espace_a_traiter === this.selectedEspace.value)
+    (this.selectedEspace.value === "" || response.Espace_a_traiter === this.selectedEspace.label)
 
   );
 });
@@ -609,6 +629,7 @@ retrieveProducts(): void {
   ).subscribe(data => {
     this.products = data;
   });
+  console.log(this.products);
 }
 retrieveResponses(): void {
   this.responseService.getAll().snapshotChanges().pipe(
@@ -625,5 +646,23 @@ goBack(){
   this.showDetails = false;
   this.showResponse = true;
 }
+convertDropboxLink(originalLink: string): string {
+  // Validate the original Dropbox link format
+  const dropboxUrlPattern = /^https:\/\/www\.dropbox\.com\/scl\/fi\//;
+  console.log('original link :', originalLink);
+  if (!dropboxUrlPattern.test(originalLink)) {
+    console.error('Invalid Dropbox link.');
+    return originalLink; // Return the original link if it doesn't match Dropbox format
+  }
+
+  // Replace 'www.dropbox.com' with 'dl.dropboxusercontent.com'
+  const directLink = originalLink.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+
+  return directLink;
 }
+
+
+
+}
+
 

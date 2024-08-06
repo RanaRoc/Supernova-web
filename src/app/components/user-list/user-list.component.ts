@@ -19,6 +19,9 @@ this.updateConfirmedUsers();
 
   }
 
+  goToBD() {
+    this.router.navigate(['/file-upload']);
+  }
   goBack() {
     this.router.navigate(['/login']);
   }
