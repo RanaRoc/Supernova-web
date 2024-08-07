@@ -64,7 +64,7 @@ private unsubscribe$: Subject<void> = new Subject<void>();
 
     { value: 'Rond', label: 'Rond', image: 'assets/images/rond.png', alt: 'Image 1' },
     { value: 'Carré', label: 'Carré', image: 'assets/images/carre.png', alt: 'Image 2' },
-    { value: 'Rectangulaire', label: 'Rectangulaire', image: 'assets/images/rectangulaire.svg', alt: 'Image 3' },
+    { value: 'Carré / rectangulaire', label: 'Rectangulaire', image: 'assets/images/rectangulaire.svg', alt: 'Image 3' },
     { value: 'Linéaire', label: 'Linéaire', image: 'assets/images/ligne.png', alt: 'Image 4' },
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/jesaispas.jpg', alt: 'Image 4' },
 
@@ -548,7 +548,6 @@ nextSpace(){
       Dashboard : responses
     };
 this.newProject = newProject;
-    this.projectService.addProject(newProject);
 
     console.log(this.projectProducts);
   }else{
@@ -563,6 +562,11 @@ returnToMenu(){
 }
 
 showManu(){
+
+  this.newProject.options = Array.from(document.querySelectorAll('.options input[type="checkbox"]')).map((checkbox: HTMLInputElement) => checkbox.checked);
+  console.log("options",this.newProject.options);
+  this.projectService.addProject(this.newProject);
+
   this.generatePdf();
   this.showProjectProducts = false;
   this.showManufacture =true;
@@ -579,13 +583,15 @@ selectCurrentEspace(value) {
   this.showResponse = false;
   this.retrieveProducts();
   this.selectedEspace = value;
-  let selectedResponses = this.responses.filter(response => {
-    return (
-      (this.selectedEspace.label === "" || response.Espace_a_traiter === this.selectedEspace.label)
-
-    );
-  });
-
+  let selectedResponses = this.responses.filter(response =>
+    response.Espace_a_traiter === this.selectedEspace.label &&
+    response.Segment === this.selectedSegment &&
+    response.Standing === this.selectedWidget &&
+    response.Style === this.selectedStyle &&
+    response.Surface_de_pose === this.selectedSurface[this.selectedEspace.value] &&
+    response.Forme === this.selectedForme[this.selectedEspace.value] &&
+    response.Mode_de_pose === this.selectedPose[this.selectedEspace.value]
+  );  console.log(selectedResponses);
   let casValues = Array.from(new Set(selectedResponses.flatMap(response => [response.Choix1, response.Choix2, response.Choix3])));
 
   // Filter products where Cas matches any of the Cas values in the responses
@@ -604,15 +610,18 @@ selectCurrentEspace(value) {
     this.firstShow = true;
     this.showFinition =false;
 this.showResponse = true;
-let selectedResponses = this.responses.filter(response => {
-  return (
-    (this.selectedEspace.value === "" || response.Espace_a_traiter === this.selectedEspace.label)
-
-  );
-});
-
+let selectedResponses = this.responses.filter(response =>
+  response.Espace_a_traiter === this.selectedEspace.label &&
+  response.Segment === this.selectedSegment &&
+  response.Standing === this.selectedWidget &&
+  response.Style === this.selectedStyle &&
+  response.Surface_de_pose === this.selectedSurface[this.selectedEspace.value] &&
+  response.Forme === this.selectedForme[this.selectedEspace.value] &&
+  response.Mode_de_pose === this.selectedPose[this.selectedEspace.value]
+);
+console.log(selectedResponses);
 let casValues = Array.from(new Set(selectedResponses.flatMap(response => [response.Choix1, response.Choix2, response.Choix3])));
-
+console.log(casValues);
 // Filter products where Cas matches any of the Cas values in the responses
 this.selectedProducts = this.products.filter(product =>
 casValues.includes(product.Identifiant)

@@ -5,6 +5,7 @@ export class Project {
   Products?: Product[] = [];
   Espace?: espace[] = [];
   Dashboard?: resp;
+  options?: boolean[] = [false,false,false];
 }
 
 class espace {
