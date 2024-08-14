@@ -4,6 +4,7 @@ import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +13,18 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class LoginComponent implements OnInit{
   registrationForm: FormGroup;
+  isAuthenticated: boolean = false;
 
-  constructor( private userService : UserService, private router: Router,private auth: AngularFireAuth, private fb: FormBuilder) { }
+
+  constructor( private userService : UserService, private router: Router,private auth: AngularFireAuth) { }
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+    this.auth.authState.subscribe(user => {
+      this.isAuthenticated = !!user;
     });
+    if(this.isAuthenticated){
+    this.router.navigate(['/accueil']);
+    }
+
   }
 
 show1 = true;
@@ -54,45 +60,47 @@ next6(){
   this.show6 = !this.show6;
   this.show7 = !this.show7;
 }
-login() {
+user: User | null = null;
+async login() {
   this.email = (document.querySelector('input[type="email"]') as HTMLInputElement).value;
   this.mdp = (document.querySelector('input[type="password"]') as HTMLInputElement).value;
-  this.userService.checkIfUserExists(this.email, this.mdp).subscribe(
-    (user) => {
-      if (user) {
-        if (user.Confirmed) {
-          alert('Your account is confirmed, welcome!');
-          this.auth.signInWithEmailAndPassword(this.email, this.mdp)
 
-          this.router.navigate(['/accueil']);
-        } else {
-          alert('Your account is not confirmed yet, please check your email');
-        }
-      } else {
-        alert('Invalid email or password');
-      }
-    },
-    (error) => {
-      console.error('Error:', error);
-      alert('An error occurred during login');
+  await this.auth.signInWithEmailAndPassword(this.email, this.mdp);
+  this.isAuthenticated = !!this.auth.currentUser;
+ console.log(this.isAuthenticated);
+    if(this.isAuthenticated) {
+      console.log("email " + this.email);
+      console.log("mdp " + this.mdp);
+      this.user = this.userService.checkIfUserExists(this.email,this.mdp);
+      console.log("user" + this.user);
+      this.userService.user = this.user;
+
+      console.log("user service user" + this.userService.user);
+        //if(this.user.Confirmed)
+        //  this.router.navigate(['/accueil']);
+        this.router.navigate(['/accueil']);
     }
-  );
 }
-loginA(){
-  this.email = (document.querySelector('input[type="nom"]') as HTMLInputElement).value;
-  this.mdp = (document.querySelector('input[type="password"]') as HTMLInputElement).value;
-  if(this.email == 'haitam' && this.mdp == 'supernova123'){
-    this.router.navigate(['/users']);
-  }
-  else{
+loginA() {
+  const email = (document.querySelector('input[type="nom"]') as HTMLInputElement).value;
+  const password = (document.querySelector('input[type="password"]') as HTMLInputElement).value;
+
+  if (email === 'haitam' && password === 'supernova123') {
+    localStorage.setItem('isAdmin', 'true'); // Store a flag in localStorage
+    this.router.navigate(['/users']); // Navigate to the admin route
+  } else {
     alert('Invalid email or password');
   }
 }
+
 
 signin(){
   this.show4 = !this.show4;
   this.show5 = !this.show5;
 }
+
+
+
 async signup(){
   this.show5 = !this.show5;
      this.nom = (document.querySelector('input[type="nom"]') as HTMLInputElement).value;
@@ -109,11 +117,16 @@ async signup(){
       NumTel: this.numtel,
       NomAg: this.nomAg,
       Mdp: this.mdp,
-      Confirmed: false
+      Confirmed: false,
+      Projects: []
     };
 
   this.userService.addUser(newUser);
-  this.auth.createUserWithEmailAndPassword(this.email, this.mdp);
+  this.auth.createUserWithEmailAndPassword(this.email, this.mdp).then(
+    response => {
+      console.log(response);
+    }
+  )
 
     try {
       const response = await fetch('http://localhost:3000/api/send-email', {
@@ -135,6 +148,27 @@ async signup(){
       console.error('Error:', error);
       alert('An error occurred while sending the email');
     }
+    try {
+      const response = await fetch('http://localhost:3000/api/send-email-admin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: this.email, nom: this.nom,
+          prenom: this.prenom }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+      } else {
+        alert(result.error);
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while sending the email');
+    }
+
   }
 }
 

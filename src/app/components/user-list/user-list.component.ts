@@ -16,7 +16,11 @@ export class UserListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 this.updateConfirmedUsers();
+    this.userService.getAllC().subscribe(
+      (data) => console.log(data),
 
+      (error) => console.error(error)
+    );
   }
 
   goToBD() {
@@ -70,6 +74,27 @@ this.updateConfirmedUsers();
       }
     }
     this.updateConfirmedUsers();
+    try {
+      const response = await fetch('http://localhost:3000/api/send-email-confirmation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: this.selectedUser.data.Email, nom: this.selectedUser.data.Nom,
+          prenom: this.selectedUser.data.Prenom }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert(result.message);
+      } else {
+        alert(result.error);
+      }
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while sending the email');
+    }
+
   }
 
   async unConfirmUser(): Promise<void> {

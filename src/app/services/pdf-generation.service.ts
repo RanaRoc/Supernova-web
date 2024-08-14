@@ -69,8 +69,20 @@ export class PdfGenerationService {
     return directLink;
   }
 
-
-  async generatePdf(project) {
+  async generatePdfAsBase64(project): Promise<string> {
+    return new Promise((resolve, reject) => {
+      try {
+        this.generatePdf(project, (pdfDoc) => {
+          pdfDoc.getBase64((data) => {
+            resolve(data);
+          });
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  async generatePdf(project, callback) {
     try {
       const logoUrl = 'assets/images/logo.jpg';
       const base64Logo = await this.getBase64ImageFromURL(logoUrl);
@@ -344,7 +356,14 @@ export class PdfGenerationService {
         }
       };
       console.log("Supposed to download");
-      pdfMake.createPdf(docDefinition).download('Projet.pdf');
+      const pdfDoc = pdfMake.createPdf(docDefinition);
+
+    if (callback) {
+      callback(pdfDoc);
+    } else {
+      pdfDoc.download('Projet.pdf');
+    }
+
     } catch (error) {
       console.error('Error generating PDF:', error);
     }

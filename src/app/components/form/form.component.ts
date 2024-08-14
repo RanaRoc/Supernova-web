@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 import { Project, resp } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
 import { PdfGenerationService } from '../../services/pdf-generation.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 // I NEED TO HANDLE AUTRE AND JE NE SAIS PAS
 @Component({
   selector: 'app-form',
@@ -215,12 +218,12 @@ private unsubscribe$: Subject<void> = new Subject<void>();
 
   selectedProduct: any;
 
-  constructor(private productService: ProductService, private responseService: ResponseService,private router: Router, private projectService : ProjectService, private pdfGenerationService : PdfGenerationService) { }
+  constructor(private productService: ProductService,private userService:UserService, private responseService: ResponseService,private router: Router, private projectService : ProjectService, private pdfGenerationService : PdfGenerationService, private auth : AngularFireAuth) { }
   selectWidget(standing: string) {
     this.selectedWidget = standing;
   }
   generatePdf() {
-    this.pdfGenerationService.generatePdf(this.newProject);
+    this.pdfGenerationService.generatePdf(this.newProject,false);
   }
   selectPose(espace, value) {
     this.selectedPose[espace] = value;
@@ -505,10 +508,12 @@ else{
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }*/
+ user: User;
 ngOnInit(): void {
   this.retrieveProducts();
   this.retrieveResponses();
-
+this.user = this.userService.user;
+console.log(this.user);
 }
 lastEspac ="";
 nextSpace(){
@@ -548,7 +553,13 @@ nextSpace(){
       Dashboard : responses
     };
 this.newProject = newProject;
+this.user = this.userService.user;
+      if (!Array.isArray(this.user.Projects)) {
+        this.user.Projects = [];
+      }
+      this.user.Projects.push(newProject);
 
+    console.log(this.userService.user);
     console.log(this.projectProducts);
   }else{
   this.lastEspac = selectedEspac;
@@ -557,11 +568,12 @@ this.newProject = newProject;
   }
 
 }
+
 returnToMenu(){
   this.router.navigate(['/accueil'])
 }
 
-showManu(){
+async showManu(){
 
   this.newProject.options = Array.from(document.querySelectorAll('.options input[type="checkbox"]')).map((checkbox: HTMLInputElement) => checkbox.checked);
   console.log("options",this.newProject.options);
@@ -570,6 +582,33 @@ showManu(){
   this.generatePdf();
   this.showProjectProducts = false;
   this.showManufacture =true;
+  try {
+    const pdfBase64 = await this.pdfGenerationService.generatePdfAsBase64(this.newProject);
+
+    const response = await fetch('http://localhost:3000/api/send-email-pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.user.Email,
+        nom: this.user.Nom,
+        prenom: this.user.Prenom,
+        pdfAttachment: pdfBase64, // Attach the PDF as a Base64 string
+      }),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert(result.message);
+    } else {
+      alert(result.error);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while sending the email');
+  }
+
 }
 send(product){
   this.firstShow = false;

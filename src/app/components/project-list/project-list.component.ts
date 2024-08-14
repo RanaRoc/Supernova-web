@@ -5,6 +5,7 @@ import { Project } from '../../models/project.model';
 import { Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { PdfGenerationService } from '../../services/pdf-generation.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -30,7 +31,7 @@ export class ProjectListComponent implements OnInit {
     { value: ' ', label: 'Je ne sais pas', image: 'assets/images/autre.jpg', alt: 'Image 3' },
   ];
 
-  constructor(private projectService: ProjectService, private userService: UserService, private router : Router, private pdfService :PdfGenerationService) {}
+  constructor(private projectService: ProjectService, private userService: UserService, private router : Router, private pdfService :PdfGenerationService, private auth :AngularFireAuth) {}
 
   goToAccueil(){
     this.router.navigate(['/accueil']);
@@ -44,13 +45,15 @@ export class ProjectListComponent implements OnInit {
   goToProjects(){
     this.router.navigate(['/projects']);
   }
+
   ngOnInit() {
-    this.projectService.getAll().valueChanges().subscribe((data) => {
-      this.projects = Object.values(data);
-    });
+      this.projects = this.userService.user.Projects;
+
+
+
   }
   generatePdf() {
-    this.pdfService.generatePdf(this.selectedProject);
+    this.pdfService.generatePdf(this.selectedProject,false);
   }
   deleteP() {
     console.log(this.selectedProject.key); // Add this line to verify the key

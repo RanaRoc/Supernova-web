@@ -10,7 +10,7 @@ export class UserService {
   private userDataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public userData$: Observable<any> = this.userDataSubject.asObservable();
 
-  public user: Observable<User>;
+  public user: User;
   private dbPath = '/user';
   usersRef: AngularFireList<User>;
 
@@ -18,14 +18,20 @@ export class UserService {
     this.usersRef = db.list(this.dbPath);
   }
   setUserData(userData: any): void {
+    this.usersRef = this.db.list(this.dbPath);
+
     this.userDataSubject.next(userData);
   }
 
   addUser(user: User): void {
+    this.usersRef = this.db.list(this.dbPath);
+
     this.usersRef.push(user);
   }
 
   getAllC(): Observable<{ key: string, data: User }[]> {
+    this.usersRef = this.db.list(this.dbPath);
+
     return this.usersRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({
@@ -35,19 +41,30 @@ export class UserService {
       )
     );
   }
-  checkIfUserExists(email: string, password: string): Observable<User | undefined> {
-    this.user = this.usersRef.snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c => ({
-          key: c.payload.key,
-          data: c.payload.val() as User
-        })).find(user => user.data.Email === email && user.data.Mdp === password)?.data // Use ?.data to access data safely
-      )
+
+  checkIfUserExists(email: string, password: string): User  {
+    this.usersRef = this.db.list(this.dbPath);
+
+    this.getAllC().subscribe(
+      (data) => {
+        data.forEach(user => {
+          console.log(user.data);
+
+          if (user.data.Email === email && user.data.Mdp === password) {
+            this.user = user.data;
+            this.setUserData(user.data);
+          }
+        });
+      },
+      (error) => console.error(error)
     );
+    console.log(this.user);
     return this.user;
   }
 
   getAllU(): Observable<{ key: string, data: User }[]> {
+    this.usersRef = this.db.list(this.dbPath);
+
     return this.usersRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(c => ({

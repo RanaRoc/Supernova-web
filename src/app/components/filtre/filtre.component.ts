@@ -5,6 +5,7 @@ import { ResponseService } from '../../services/response.service';
 import { UserService } from '../../services/user.service';
 import { Renderer2 } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-filtre',
   templateUrl: './filtre.component.html',
@@ -13,7 +14,8 @@ import { NavigationExtras, Router } from '@angular/router';
 export class FiltreComponent {
   user = null;
   fullName = '';
-  constructor(private productService: ProductService, private responseService: ResponseService, private userService: UserService, private router : Router) {}
+  constructor(private productService: ProductService, private responseService: ResponseService, private userService: UserService, private router : Router, private auth : AngularFireAuth){}
+
 
   Segments: { value: string, label: string, image: string, alt: string }[] = [
     { value: 'Résidentiel', label: 'Résidentiel', image: 'assets/images/résidentielle.jpg', alt: 'Image 1' },

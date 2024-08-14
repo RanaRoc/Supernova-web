@@ -9,17 +9,19 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './admin.guard';
 const routes: Routes = [
-  { path: 'form', component: FormComponent },
-  { path: 'accueil', component: AccueilComponent},
+  { path: 'form', component: FormComponent, canActivate: [AuthGuard] },
+  { path: 'accueil', component: AccueilComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'products', component: ProductsListComponent },
-{ path: 'filtre', component: FiltreComponent },
+  { path: 'products', component: ProductsListComponent, canActivate: [AuthGuard] },
+{ path: 'filtre', component: FiltreComponent, canActivate: [AuthGuard] },
 { path: 'login', component: LoginComponent },
-{ path: 'users', component: UserListComponent },
-{ path: 'wishlist', component: WishlistComponent },
-{ path: 'projects',component: ProjectListComponent},
-{ path: 'file-upload',component: FileUploadComponent}
+{ path: 'users', component: UserListComponent, canActivate: [AdminGuard] },
+{ path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
+{ path: 'projects',component: ProjectListComponent, canActivate: [AuthGuard]},
+{ path: 'file-upload',component: FileUploadComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

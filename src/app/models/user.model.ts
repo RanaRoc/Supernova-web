@@ -1,5 +1,5 @@
 import { Product } from "./product.model";
-
+import { Project } from "./project.model";
 export class User {
   Key?: string;
   Nom?: string;
@@ -10,6 +10,7 @@ export class User {
   Mdp?: string;
   Confirmed?: boolean;
   wishList?: { key: string, data: Product }[] = [];
+  Projects: Project[] = [];
 }
 
 
